@@ -1,0 +1,18 @@
+{
+    "font awesome 5 brands": {
+        "normal": "font_awesome_5_brands_normal_9369aa2139e591ccb28d8f84be14378a"
+    },
+    "font awesome 5 free": {
+        "normal": "D:\\wamp64\\www\\doctorcalendar\\storage\\fonts\/font_awesome_5_free_normal_867d5ae1909842f22df175dea8c52595",
+        "900": "font_awesome_5_free_900_0d1eb70ffd27012c5251ff8a1d0138df"
+    },
+    "material design icons": {
+        "normal": "material_design_icons_normal_fb64813527af8992ddf4663c04fa8d90"
+    },
+    "outlined-iconset": {
+        "normal": "outlined_iconset_normal_230b2e261f33c0807f53efe3e3d8ee4e"
+    },
+    "themify": {
+        "normal": "themify_normal_5608dcc8d42cbf3bf5820ed2a8a0a704"
+    }
+}
