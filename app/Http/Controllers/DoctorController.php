@@ -65,10 +65,10 @@ class DoctorController extends Controller
             foreach ($request->file('photo') as $photo) {
                 // Generate a unique filename
                 $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $photo->extension();
-            
+
                 // Upload image to public directory
                 $path = $photo->move(public_path('doctor_images'), $fileName);
-            
+
                 // Create a new doctor image record
                 $doctorImages = new DoctorImages();
                 $doctorImages->doctor_id = $doctor->id;
@@ -77,7 +77,7 @@ class DoctorController extends Controller
                 $doctorImages->save();
             }
 
-            
+
             // foreach ($request->file('photo') as $photo) {
             //     // Generate a unique filename
             //     $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $photo->extension();
@@ -190,31 +190,77 @@ class DoctorController extends Controller
         $month = $request->input('month');
         $year = $request->input('year');
         $doctorImage = doctorImages::findOrFail($imageId);
-
+        $calendarData = $this->generateCalendar($year, $month);
         $doctordetails = Doctor::findOrFail($doctorImage->doctor_id);
 
-        return view('backend.doctor.print-calendar', compact('doctordetails', 'doctorImage', 'year', 'month'));
+        return view('backend.doctor.print-calendar', compact('doctordetails', 'doctorImage', 'calendarData', 'year', 'month'));
     }
 
-    
-    public function downloadpdfDoctor(Request $request)
+    private function generateCalendar($year, $month)
     {
-        ini_set('memory_limit', '2048M');
+        $cal = new \DateTime("$year-$month-01");
 
-        $id = $request->input('imageId');
-        $month = $request->input('month');
-        $year = $request->input('year');
+        $lastDay = (int)$cal->format('t');
 
-        $doctorImage = doctorImages::findOrFail($id);
-        $doctordetails = Doctor::findOrFail($doctorImage->doctor_id)->first();
+        $calendarHTML = "<h2 class='text-right' style='margin-right:70px;'>{$cal->format('F')} $year</h2>
+                     <table style='width:100%; border-collapse: collapse; height:200px;'>
+                         <tr>
+                             <th>Sun</th>
+                             <th>Mon</th>
+                             <th>Tue</th>
+                             <th>Wed</th>
+                             <th>Thu</th>
+                             <th>Fri</th>
+                             <th>Sat</th>
+                         </tr>";
 
-        // Load the HTML content of the show view
-        $html = view('backend.doctor.print-calendar', compact('doctordetails', 'doctorImage', 'month', 'year'))->render();
+        $day = 1;
+        for ($i = 0; $i < 6; $i++) {
+            $calendarHTML .= '<tr>';
+            for ($j = 0; $j < 7; $j++) {
+                if ($i === 0 && $j < $cal->format('w')) {
+                    $calendarHTML .= '<td></td>';
+                } elseif ($day > $lastDay) {
+                    break;
+                } else {
+                    $calendarHTML .= "<td>$day</td>";
+                    $day++;
+                }
+            }
+            $calendarHTML .= '</tr>';
+        }
 
-        // Generate the PDF
-        $pdf = PDF::loadHTML($html);
+        $calendarHTML .= '</table>';
 
-        // Download the PDF file
-        return $pdf->download('calendar_preview.pdf');
+        return $calendarHTML;
     }
+    // public function downloadpdfDoctor(Request $request)
+    // {
+    //     ini_set('memory_limit', '2048M');
+
+    //     $id = $request->input('imageId');
+    //     $month = $request->input('month');
+    //     $year = $request->input('year');
+
+    //     $doctorImage = doctorImages::findOrFail($id);
+    //     $doctordetails = Doctor::findOrFail($doctorImage->doctor_id)->first();
+    //     $calendarData = $this->generateCalendar($year, $month);
+
+    //     // Pass the data to the view
+    //     $viewData = compact('doctordetails', 'doctorImage', 'month', 'year', 'calendarData');
+
+    //     // Load the HTML content of the show view
+    //     $html = view('backend.doctor.print-calendar', $viewData)->render();
+
+    //     // Generate the PDF with A5 page size
+    //     // $pdf = PDF::loadView('backend.doctor.print-calendar', $viewData)
+    //     //     ->setPaper('a5', 'portrait'); // 'a5' for A5 size, 'portrait' for portrait orientation
+           
+    //     $pdf = PDF::loadView('backend.doctor.print-calendar', $viewData)
+    //     ->setOptions(['dpi' => 300, 'defaultFont' => 'sans-serif'])
+    //     ->setPaper('a5', 'landscape'); // Set A5 size in landscape orientation
+    
+    //     // Download the PDF file
+    //     return $pdf->download('calendar_preview.pdf');
+    // }
 }

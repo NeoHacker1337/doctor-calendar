@@ -71,12 +71,12 @@
                                                 </td>
                                                 <td>
                                                      
-                                                    <button class="btn btn-primary downloadbtn"
+                                                    {{-- <button class="btn btn-primary downloadbtn"
                                                         data-image-id="{{ $dr->id }}"
                                                         data-month-dropdown-class="month-dropdown"
                                                         data-year-dropdown-class="year-dropdown">
                                                         <i class="fas fa-download"></i>
-                                                    </button>
+                                                    </button> --}}
  
                                                     <button class="btn btn-primary previewBtn"
                                                         data-image-id="{{ $dr->id }}"
@@ -85,7 +85,7 @@
                                                         <i class="fas fa-eye"></i>
                                                     </button>
 
-                                                    <button class="btn btn-secondary"><i class="fas fa-share"></i></button>
+                                                    {{-- <button class="btn btn-secondary"><i class="fas fa-share"></i></button> --}}
                                                 </td>
 
                                             </tr>

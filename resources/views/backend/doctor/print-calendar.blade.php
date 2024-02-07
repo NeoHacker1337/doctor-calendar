@@ -1,20 +1,35 @@
-@extends('layouts.employeemaster')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-    <div>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Doctor Dashboard</title>
+    <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
 
-        <div style="width: 100%;">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
 
-            <div style="width: 50%; height: 100px; float: left;">
+</head>
+<body>
+    <div id="calendarDiv"
+        style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+
+        <div style="width: 100%; height: 100%; display: flex;">
+
+            <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
                 <div>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Mankind_Serving_Life.png" alt=""
-                        class="img-fluid" width="200px" />
+                    <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt="" class="img-fluid" width="100px" />
+
+                  
                 </div>
-                <div class="doctorphoto" style="padding: 0;display: flex;margin:60px;margin-left: 240;">
-                    <img id="photo" src="{{ asset($doctorImage->path) }}" alt="Passport Photo" height="400px"
-                        width="300px" style="border: 5px solid blue;  border-radius: 20px;">
+                <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
+                    <img id="photo" src="{{ asset($doctorImage->path) }}" alt="Passport Photo"
+     style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
+
+
                 </div>
+ 
                 @php
                     $currentMonth = (int) \Carbon\Carbon::now()->format('m');
                     $selectedMonth = (int) $month;
@@ -22,33 +37,26 @@
                 @endphp
 
                 <div class="text-center">
-
                     @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
-                        <h3>Date Of Birth: {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</h3>
+                        <p>Date Of Birth: {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</p>
                     @endif
 
                     @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
-                        <h3>Marriage Anniversary:
-                            {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</h3>
+                        <p>Marriage Anniversary:
+                            {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</p>
                     @endif
-
                 </div>
-
-
-
             </div>
 
-            <div style="margin-left: 50%; height: 100px;">
-                <main style="margin-top: 100px">
-                    <!-- Project Code Start -->
+            <div style="width: 50%; height: 100%; padding: 10mm;">
+                <main style="margin-top: 0;">
 
-                    <h3 id="monthAndYear" class="text-right mb-4"
-                        style="    margin-right: 73px;
-           margin-top: -29px;">
-                    </h3>
-                    <div id="calendar-container"></div>
-
-                    <div style="margin-right: 60px;">
+                    <h4 id="monthAndYear" class="text-right mb-4"></h4>
+                    {{-- <div id="calendar-container"></div> --}}
+                    <div id="calendar-container">
+                        {!! $calendarData !!}
+                    </div>
+                    <div>
                         <hr style="border: 2px solid black;  margin: 40px 0;">
                         <hr style="border: 2px solid black;  margin: 40px 0;">
                         <hr style="border: 2px solid black;  margin: 40px 0;">
@@ -58,75 +66,66 @@
             </div>
         </div>
     </div>
-@endsection
 
-@section('extra_css')
-    <!-- DataTables -->
-    <link href="{{ asset('plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <button id="btn-one" class="btn btn-success mx-auto">Download PDF</button>
+ 
 
-    <!-- Responsive datatable examples -->
-    <link href="{{ asset('plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-@endsection
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
-@section('extra_js')
-    <!-- Responsive examples -->
-    <script src="{{ asset('plugins/datatables/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
-
-    <!-- Required datatable js -->
-    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
-    <!-- Datatable init js -->
-    <script src="{{ asset('assets/pages/datatables.init.js') }}"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+        integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+    
 
     <script>
-        // JavaScript code to generate and populate the calendar
-        function displayCalendar(year, month) {
-            const calendarContainer = document.getElementById('calendar-container');
+        // Pass the registration number and employee ID to the JavaScript variables
+        var registrationNumber = "{{ $doctordetails->registration_number }}";
+        var employeeId = "{{ Auth::guard('admin')->user()->employee_id }}";
+        var employeeName = "{{ Auth::guard('admin')->user()->name }}";
+    
+        // If employee ID is null, use the employee name
+        var filenamePrefix = employeeId ? registrationNumber + '_employee_' + employeeId : registrationNumber + '_employee_' + employeeName;
+    
+        document.querySelector('#btn-one').addEventListener('click', function () {
+            html2canvas(document.querySelector('#calendarDiv')).then((canvas) => {
+                let base64image = canvas.toDataURL('image/png');
+    
+                // Calculate A5 size in pixels (148 x 210 mm)
+                let a5Width = 595; // A5 width in pixels
+                let a5Height = 842; // A5 height in pixels
+    
+                // Calculate the position and size of the image to fit A5 page
+                let imageX = 15; // X-coordinate
+                let imageY = 15; // Y-coordinate
+                let imageWidth = a5Width - 30; // Width of the image
+                let imageHeight = (canvas.height / canvas.width) * imageWidth; // Height proportional to width
+    
+                // Create the PDF with A5 page size
+                let pdf = new jsPDF('p', 'px', [a5Width, a5Height]);
+    
+                // Add the image to the PDF
+                pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
+    
+                // Get the current date
+                var currentDate = new Date().toISOString().slice(0,10);
+    
+                // Save the PDF with the generated filename
+                pdf.save(filenamePrefix + '_' + currentDate + '.pdf');
 
-            const cal = new Date(year, month - 1, 1);
+                console.log('a5Width:', a5Width);
+console.log('a5Height:', a5Height);
+console.log('imageWidth:', imageWidth);
+console.log('imageHeight:', imageHeight);
 
-            const lastDay = new Date(year, month, 0).getDate();
-
-            let calendarHTML = `
-                <h2 class="text-right" style="margin-right:70px;">${cal.toLocaleString('default', { month: 'long' })} ${year}</h2>
-                <table  style="width:100%; border-collapse: collapse; height:450px;">
-                    <tr>
-                        <th>Sun</th>
-                        <th>Mon</th>
-                        <th>Tue</th>
-                        <th>Wed</th>
-                        <th>Thu</th>
-                        <th>Fri</th>
-                        <th>Sat</th>
-                    </tr>
-            `;
-
-            let day = 1;
-            for (let i = 0; i < 6; i++) {
-                calendarHTML += '<tr>';
-                for (let j = 0; j < 7; j++) {
-                    if (i === 0 && j < cal.getDay()) {
-                        calendarHTML += '<td></td>';
-                    } else if (day > lastDay) {
-                        break;
-                    } else {
-                        calendarHTML += `<td>${day}</td>`;
-                        day++;
-                    }
-                }
-                calendarHTML += '</tr>';
-            }
-
-            calendarHTML += '</table>';
-            calendarContainer.innerHTML = calendarHTML;
-        }
-
-        // Example: Set manual month and year
-        const manualYear = {{ $year }}; // Set your desired year
-        const manualMonth = {{ $month }}; // Set your desired month (Note: Month is 1-based)
-
-        displayCalendar(manualYear, manualMonth);
+            });
+        });
     </script>
-@endsection
+    
+    
+    
+</body>
+
+</html>
