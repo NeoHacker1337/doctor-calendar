@@ -42,7 +42,7 @@
                                                 <th>Date of Joining</th>
                                                 <th>Status</th>
                                                 <th>Doctor Added</th>
-                                                <th>Action</th>
+                                                
 
                                             </tr>
                                         </thead>
@@ -163,13 +163,7 @@
                             'searchable': false,
                             'orderable': false,
                         },
-                        {
-                            "data": "action",
-                            "name": "action",
-                            'searchable': false,
-                            'orderable': false,
-                        },
-
+                        
                     ],
 
                 });

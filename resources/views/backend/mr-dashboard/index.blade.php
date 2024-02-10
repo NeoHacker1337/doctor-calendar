@@ -88,6 +88,13 @@
 
 
         </div>
-        <!-- container-fluid -->
+        <!-- container-fluid --><div class="row mt-4">
+                <div class="col-12 text-center">
+                    <form action="{{ route('mrlogout') }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-danger btn-lg">Logout</button>
+                    </form>
+                </div>
+            </div>
     </div>
 @endsection

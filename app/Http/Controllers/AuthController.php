@@ -86,6 +86,19 @@ class AuthController extends Controller
         return redirect('/')->with('status', 'Logged out successfully');
     }
 
+    public function mrlogout()
+    {
+        try {
+            Auth::guard('admin')->logout();
+
+            // Redirect to the login page after logout
+            return redirect()->route('login')->with('success', 'Successfully logged out');
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error while logging out: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while logging out');
+        }
+    }
     public function forgotpassword()
     {
         return view('backend.auth.forgot');
