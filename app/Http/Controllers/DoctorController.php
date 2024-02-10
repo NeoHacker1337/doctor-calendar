@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Doctor;
 use App\Models\doctorImages;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class DoctorController extends Controller
 {
@@ -34,10 +35,8 @@ class DoctorController extends Controller
         ]);
         $doctor = new Doctor();
         $doctor->name = 'Dr.' . $request->input('name');
-        $doctor->date_of_birth = $request->input('date_of_birth');
-        $doctor->marriage_anniversary = $request->input('marriage_anniversary');
-
-
+        $doctor->date_of_birth = Carbon::createFromFormat('Y-m-d', $request->input('date_of_birth'))->toDateString();
+        $doctor->marriage_anniversary = Carbon::createFromFormat('Y-m-d', $request->input('marriage_anniversary'))->toDateString();
         if ($request->file('april_photo')) {
             $april_photo = $request->file('april_photo');
             $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $april_photo->extension();
@@ -322,19 +321,19 @@ class DoctorController extends Controller
         $calendarDataMaynovember = $this->generateCalendar($year,  $november_month, $doctordetails);
         $calendarDataMaydecember = $this->generateCalendar($year, $december_month, $doctordetails);
 
-        
+
         // for next year calendar 
         $calendarDatajanuary = $this->generateCalendar($nextYear, $january_month, $doctordetails);
         $calendarDatafebruary = $this->generateCalendar($nextYear,  $february_month, $doctordetails);
         $calendarDatamarch = $this->generateCalendar($nextYear, $march_month, $doctordetails);
- 
 
-        
+
+
         // Format the month and year for display
         $formattedMonth = \DateTime::createFromFormat('!m', $month)->format('F'); // e.g., April
         $formattedMonthNumber = sprintf("%02d", $month); // e.g., 04
 
-        return view('backend.doctor.print-calendar', compact('doctordetails', 'calendarData', 'year', 'month', 'formattedMonth', 'formattedMonthNumber', 'calendarDataMay','calendarDatajune','calendarDatajuly','calendarDataMayaugust','calendarDataMayseptember','calendarDataMayoctober','calendarDataMaynovember','calendarDataMaydecember','calendarDatajanuary','calendarDatafebruary','calendarDatamarch'));
+        return view('backend.doctor.print-calendar', compact('doctordetails', 'calendarData', 'year', 'month', 'formattedMonth', 'formattedMonthNumber', 'calendarDataMay', 'calendarDatajune', 'calendarDatajuly', 'calendarDataMayaugust', 'calendarDataMayseptember', 'calendarDataMayoctober', 'calendarDataMaynovember', 'calendarDataMaydecember', 'calendarDatajanuary', 'calendarDatafebruary', 'calendarDatamarch'));
     }
 
     private function generateCalendar($year, $month, $doctordetails)
@@ -343,8 +342,8 @@ class DoctorController extends Controller
 
         $lastDay = (int)$cal->format('t');
 
-        $dateOfBirth = $doctordetails->date_of_birth;
-        $marriageAnniversary = $doctordetails->marriage_anniversary;
+        $dateOfBirth = new \DateTime($doctordetails->date_of_birth);
+        $marriageAnniversary = new \DateTime($doctordetails->marriage_anniversary);
 
         $calendarHTML = "<h4 id='Year' class='text-right mb-4'>$year</h4>
                     <h4 id='monthAndYear' class='text-center mb-4'>{$cal->format('F')} | {$cal->format('m')}</h4>
@@ -368,12 +367,21 @@ class DoctorController extends Controller
                 } elseif ($day > $lastDay) {
                     break;
                 } else {
-                    $currentDate = "$year-$month-" . sprintf("%02d", $day);
+                    $currentDate = new \DateTime("$year-$month-" . sprintf("%02d", $day));
+                    $currentDateFormatted = $currentDate->format('m-d');
+                    $dateOfBirthFormatted = $dateOfBirth->format('m-d');
+                    $marriageAnniversaryFormatted = $marriageAnniversary->format('m-d');
 
                     $highlightClass = '';
 
-                    if ($currentDate == $dateOfBirth || $currentDate == $marriageAnniversary) {
-                        $highlightClass = 'highlight-date';
+                    if ($currentDateFormatted == $dateOfBirthFormatted) {
+
+                        $highlightClass .= ' highlight-date-birth';
+                    }
+
+                    if ($currentDateFormatted == $marriageAnniversaryFormatted) {
+
+                        $highlightClass .= ' highlight-date-anniversary';
                     }
 
                     $calendarHTML .= "<td class='$highlightClass'>$day</td>";

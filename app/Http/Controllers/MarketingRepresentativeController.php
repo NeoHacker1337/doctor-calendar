@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -157,7 +158,7 @@ class MarketingRepresentativeController extends Controller
 
         foreach ($order as $index => $cate) {
 
-
+            $doctor_count = Doctor::where('created_by', $cate->id)->count();
 
             $data[] = [
                 "id" => $index + 1,
@@ -167,8 +168,7 @@ class MarketingRepresentativeController extends Controller
                 "phone" => $cate->phone,
                 "date_of_joining" => Carbon::parse($cate->created_at)->format('Y-m-d h:iA'),
                 "status" => $cate->status,
-                "doctor_added" => 0,
-                "action" => 'View',
+                "doctor_added" => $doctor_count,                 
             ];
         }
 

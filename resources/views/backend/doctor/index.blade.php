@@ -59,10 +59,10 @@
                                                     {{ $createdByUser ? $createdByUser->name : 'User not found' }}
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('doctor-list.show', ['doctor_list' => $dr->id]) }}"
-                                                        class="btn btn-sm btn-info" title="View">
+                                                    <a href="{{ route('admin.calendar.preview', ['imageId' => $dr->id]) }}" class="btn btn-sm btn-info" title="View">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
+                                                  
                                                 </td>
                                             </tr>
                                         @endforeach

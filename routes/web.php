@@ -25,9 +25,9 @@ Route::POST('otp', [AuthController::class, 'OtpSubmit'])->name('admin.otp.submit
 
 
 Route::prefix('admin')->group(function () {
-    
-Route::get('/', [AuthController::class, 'adminlogin'])->name('admin.login');
-Route::post('admin/checklogin', [AuthController::class, 'adminLoginCheck'])->name('adminlogin.checklogin');
+
+    Route::get('/', [AuthController::class, 'adminlogin'])->name('admin.login');
+    Route::post('admin/checklogin', [AuthController::class, 'adminLoginCheck'])->name('adminlogin.checklogin');
 
 
     Route::middleware('admin')->group(function () {
@@ -38,6 +38,7 @@ Route::post('admin/checklogin', [AuthController::class, 'adminLoginCheck'])->nam
         Route::get('doctor-list-calendar-preview', [DoctorController::class, 'calendarpreview'])->name('doctor.list.calendar.preview');
         Route::resource('marketing-representative', MarketingRepresentativeController::class);
         Route::get('get-marketing-representative-list', [MarketingRepresentativeController::class, 'mrListtable'])->name('get-marketing-representative-list');
+        Route::get('doctor-calendar', [DoctorController::class, 'calendarpreview'])->name('admin.calendar.preview');
     });
 });
 
@@ -49,6 +50,8 @@ Route::group(['middleware' => ['mr']], function () {
     Route::resource('doctors', DoctorController::class);
     Route::post('/update/doctor/{id}', [DoctorController::class, 'updateDoctor'])->name('update.doctor');
     Route::get('doctor-calendar-preview', [DoctorController::class, 'calendarpreview'])->name('calendar.preview');
+    Route::POST('mr-logout', [AuthController::class, 'mrlogout'])->name('mrlogout');
+
 
     Route::post('download-pdf', [DoctorController::class, 'downloadpdfDoctor'])->name('download.calendar.pdf');
 });

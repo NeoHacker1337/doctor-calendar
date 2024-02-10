@@ -22,19 +22,23 @@
             /* Adjust the line-height as needed */
         }
 
-        .highlight-date::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 10px;
-            /* Adjust the width of the inner circle */
-            height: 10px;
-            /* Adjust the height of the inner circle */
-            background-color: white;
-            /* Adjust the color of the inner circle */
+        .highlight-date-birth {
+            position: relative;
+            background-color: yellow;
             border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+        }
+
+        .highlight-date-anniversary {
+            position: relative;
+            background-color: yellow;
+            /* Adjust the color for marriage anniversary */
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
         }
     </style>
 
@@ -58,31 +62,24 @@
                     <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
                         <img id="photo" src="{{ asset($doctordetails->april_photo) }}" alt="Passport Photo"
                             style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
-
-
                     </div>
-
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 04)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 04)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
                         @endif
                     </div>
                 </div>
-
                 <div style="width: 50%; height: 100%; padding: 10mm;">
                     <main style="margin-top: 0;">
                         {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
@@ -104,6 +101,7 @@
         <div class="text-center"><button id="btn-one" class="btn btn-success mx-auto">Download PDF April</button>
         </div>
 
+
         <div id="calendarDiv_may"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
@@ -122,21 +120,17 @@
 
 
                     </div>
-
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 05)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 05)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -183,20 +177,17 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 06)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 06)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -243,20 +234,17 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 07)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 07)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -284,6 +272,8 @@
         </div>
         <div class="text-center"><button id="btn-one-july" class="btn btn-success mx-auto">Download PDF July</button>
         </div>
+
+
         <div id="calendarDiv_august"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
@@ -303,25 +293,24 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+
+                        @if (Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === '08')
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
+
+                        @if (Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === '08')
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
                         @endif
                     </div>
+
+
+
                 </div>
 
                 <div style="width: 50%; height: 100%; padding: 10mm;">
@@ -344,6 +333,8 @@
         </div>
         <div class="text-center"><button id="btn-one-august" class="btn btn-success mx-auto">Download PDF
                 August</button></div>
+
+
         <div id="calendarDiv_september"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
@@ -363,20 +354,17 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 9)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 9)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -423,20 +411,17 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 10)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 10)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -483,20 +468,17 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 11)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 11)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -543,20 +525,17 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 12)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 12)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -584,6 +563,10 @@
         </div>
         <div class="text-center"><button id="btn-one-december" class="btn btn-success mx-auto">Download PDF
                 December</button></div>
+
+
+
+
         <div id="calendarDiv_january"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
@@ -603,20 +586,17 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 01)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 01)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -642,8 +622,11 @@
                 </div>
             </div>
         </div>
+
         <div class="text-center"><button id="btn-one-january" class="btn btn-success mx-auto">Download PDF
                 January</button></div>
+
+
         <div id="calendarDiv_february"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
@@ -657,26 +640,23 @@
 
                     </div>
                     <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->february_photo) }}" alt="Passport Photo"
+                        <img id="photo" src="{{ asset($doctordetails->march_photo) }}" alt="Passport Photo"
                             style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 02)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 02)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -702,8 +682,13 @@
                 </div>
             </div>
         </div>
+
+
+
         <div class="text-center"><button id="btn-one-february" class="btn btn-success mx-auto">Download PDF
                 February</button></div>
+
+
         <div id="calendarDiv_march"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
@@ -723,20 +708,17 @@
 
                     </div>
 
-                    @php
-                        $currentMonth = (int) \Carbon\Carbon::now()->format('m');
-                        $selectedMonth = (int) $month;
-                        $currentMonthIsFeb = $currentMonth === $selectedMonth;
-                    @endphp
-
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === $selectedMonth)
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 03)
+                            {{-- Debugging Output --}}
+
                             <p><b><i>Date Of Birth:
                                         {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
                             </p>
                         @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 03)
+                            {{-- Debugging Output --}}
 
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === $selectedMonth)
                             <p><b><i>Marriage Anniversary:
                                         {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
                             </p>
@@ -762,11 +744,36 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="text-center"><button id="btn-one-march" class="btn btn-success mx-auto">Download PDF March</button>
-    </div>
+
+        <div class="text-center"><button id="btn-one-march" class="btn btn-success mx-auto">Download PDF
+                March</button>
+        </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
 
 
 
