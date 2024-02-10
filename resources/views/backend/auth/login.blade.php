@@ -19,55 +19,15 @@
                 <form class="form-horizontal m-t-30" method="POST" id="submitForm">
                     @csrf
                 
-                    <!-- Radio buttons for Admin and Employee Login -->
-                    <div class="form-group">
-                        <div class="col-12">
-                            <label>Login Type</label>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="adminLogin" name="loginType" class="custom-control-input" value="admin" checked>
-                                <label class="custom-control-label" for="adminLogin">Admin Login</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input type="radio" id="employeeLogin" name="loginType" class="custom-control-input" value="employee">
-                                <label class="custom-control-label" for="employeeLogin">Employee Login</label>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <!-- Admin Login Fields -->
-                    <div id="adminLoginFields">
-                        <div class="form-group">
-                            <div class="col-12">
-                                <label>Username</label>
-                                <input class="form-control" name="email" type="text" required="" placeholder="Username">
-                            </div>
-                        </div>
-                
-                        <div class="form-group">
-                            <div class="col-12">
-                                <label>Password</label>
-                                <input class="form-control" name="password" type="password" required="" placeholder="Password">
-                            </div>
-                        </div>
-                
-                        <div class="form-group">
-                            <div class="col-12">
-                                <div class="checkbox checkbox-primary">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1"> Remember me</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
+                  
                 
                     <!-- Employee Login Fields -->
-                    <div id="employeeLoginFields" style="display: none;">
+                    <div id="employeeLoginFields">
                         <div class="form-group">
                             <div class="col-12">
-                                <label>Employee ID</label>
-                                <input class="form-control" name="employeeId" type="text" required="" placeholder="Employee ID">
+                                <label>MR ID</label>
+                                <input class="form-control" name="employeeId" type="text" required="" placeholder="Enter Your MR ID">
                             </div>
                         </div>
                     </div>
@@ -78,12 +38,7 @@
                         </div>
                     </div>
                 
-                    <div class="form-group row m-t-30 m-b-0">
-                        <div class="col-sm-7">
-                            <a href="{{ route('admin.forgotpassword') }}" class="text-muted"><i class="fa fa-lock m-r-5"></i> Forgot your
-                                password?</a>
-                        </div>
-                    </div>
+                    
                 </form>
             </div>
 

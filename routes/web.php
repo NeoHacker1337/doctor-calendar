@@ -23,14 +23,22 @@ Route::post('forgot-password', [AuthController::class, 'forgotpasswordupdate'])-
 Route::get('forgot-password/{token}', [AuthController::class, 'putOtp'])->name('admin.otp');
 Route::POST('otp', [AuthController::class, 'OtpSubmit'])->name('admin.otp.submit');
 
-Route::middleware('admin')->group(function () {
-    // Admin-only routes go here
-    Route::resource('dashboard', DashboardController::class);
-    Route::get('admin-logout', [AuthController::class, 'logout'])->name('admin.logout');
-    Route::resource('doctor-list', DoctorController::class);
-    Route::get('doctor-list-calendar-preview', [DoctorController::class, 'calendarpreview'])->name('doctor.list.calendar.preview');
-    Route::resource('marketing-representative', MarketingRepresentativeController::class);
-    Route::get('get-marketing-representative-list', [MarketingRepresentativeController::class, 'mrListtable'])->name('get-marketing-representative-list');
+
+Route::prefix('admin')->group(function () {
+    
+Route::get('/', [AuthController::class, 'adminlogin'])->name('admin.login');
+Route::post('admin/checklogin', [AuthController::class, 'adminLoginCheck'])->name('adminlogin.checklogin');
+
+
+    Route::middleware('admin')->group(function () {
+        // Admin-only routes go here
+        Route::resource('dashboard', DashboardController::class);
+        Route::get('admin-logout', [AuthController::class, 'logout'])->name('admin.logout');
+        Route::resource('doctor-list', DoctorController::class);
+        Route::get('doctor-list-calendar-preview', [DoctorController::class, 'calendarpreview'])->name('doctor.list.calendar.preview');
+        Route::resource('marketing-representative', MarketingRepresentativeController::class);
+        Route::get('get-marketing-representative-list', [MarketingRepresentativeController::class, 'mrListtable'])->name('get-marketing-representative-list');
+    });
 });
 
 

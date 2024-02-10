@@ -23,39 +23,52 @@ class AuthController extends Controller
         return view('backend.auth.login');
     }
 
+    public function adminlogin()
+    {
+        return view('backend.auth.adminlogin');
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function checklogin(Request $request)
     {
+
         try {
-            $loginType = $request->input('loginType');
+            $employeeId = $request->input('employeeId');
+            $user = User::where('employee_id', $employeeId)->first();
 
-            if ($loginType === 'admin') {
-                $credentials = $request->only('email', 'password');
-                if (Auth::guard('admin')->attempt($credentials)) {
-                    // Authentication successful
-                    $dashboardRoute = route('dashboard.index');
-                    return response()->json(['success' => true, 'dashboardRoute' => $dashboardRoute]);
-                } else {
-                    // Authentication failed
-                    return response()->json(['error' => false]);
-                }
+            if ($user) {
+                // Log in the user
+                Auth::guard('admin')->login($user);
+
+                // Authentication successful
+                $dashboardRoute = route('mr-dashboard.index');
+                return response()->json(['success' => true, 'dashboardRoute' => $dashboardRoute]);
             } else {
-                $employeeId = $request->input('employeeId');
-                $user = User::where('employee_id', $employeeId)->first();
+                // Authentication failed
+                return response()->json(['error' => false]);
+            }
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error while creating user: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while login account');
+        }
+    }
 
-                if ($user) {
-                    // Log in the user
-                    Auth::guard('admin')->login($user);
+    public function adminLoginCheck(Request $request)
+    {
 
-                    // Authentication successful
-                    $dashboardRoute = route('mr-dashboard.index');
-                    return response()->json(['success' => true, 'dashboardRoute' => $dashboardRoute]);
-                } else {
-                    // Authentication failed
-                    return response()->json(['error' => false]);
-                }
+        try {
+
+            $credentials = $request->only('email', 'password');
+            if (Auth::guard('admin')->attempt($credentials)) {
+                // Authentication successful
+                $dashboardRoute = route('dashboard.index');
+                return response()->json(['success' => true, 'dashboardRoute' => $dashboardRoute]);
+            } else {
+                // Authentication failed
+                return response()->json(['error' => false]);
             }
         } catch (\Exception $e) {
             // Log the error

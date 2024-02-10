@@ -13,23 +13,26 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
-            $table->string('hospital_name');
-            $table->string('registration_number');
             $table->string('name');
-            $table->string('email');
-            $table->string('contact_number');
-            $table->string('education');
-            $table->string('specialization');
-            $table->text('address')->nullable();
-            $table->string('open_days');
-            $table->string('open_time');
             $table->date('date_of_birth');
-            $table->date('marriage_anniversary')->nullable();
-            $table->enum('status', ['Active', 'InActive', 'Suspend', 'Block'])->default('Active');
+            $table->date('marriage_anniversary')->nullable();             
             $table->unsignedBigInteger('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->string('april_photo')->nullable();
+            $table->string('may_photo')->nullable();
+            $table->string('june_photo')->nullable();
+            $table->string('july_photo')->nullable();
+            $table->string('august_photo')->nullable();
+            $table->string('september_photo')->nullable();
+            $table->string('october_photo')->nullable();
+            $table->string('november_photo')->nullable();
+            $table->string('december_photo')->nullable();
+            $table->string('january_photo')->nullable();
+            $table->string('february_photo')->nullable();
+            $table->string('march_photo')->nullable();
             $table->timestamps();
         });
+        
     }
 
     /**

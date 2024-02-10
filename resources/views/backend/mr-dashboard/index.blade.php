@@ -28,62 +28,58 @@
                                 <h5 class="text-center">Doctor List</h5>
                         </div>
                         <div class="card-body">
-
                             <table class="table table-striped table-bordered dt-responsive nowrap" id="mrTable"
-                                style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>S.No.</th>
-                                        <th>Hospital Name</th>
-                                        <th>Registration No.</th>
-                                        <th>Education</th>
-                                        <th>Specialization</th>
-                                        <th>Address</th>
-                                        <th>Email</th>
-                                        <th>Mobile</th>
-                                        <th>DOB</th>
-                                        <th>Marriage Anniversary</th>
-                                        <th>Date of Joining</th>                                             
-                                        <th>Action</th>
+                            style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>S.No.</th>
+                                    <th>Doctor Name</th>                                        
+                                    <th>DOB</th>
+                                    <th>Marriage Anniversary</th>                                         
+                                    <th>Action</th>
 
-                                    </tr>
-                                </thead>
+                                </tr>
+                            </thead>
 
-                                <tbody>
-                                    @if(count($doctor) > 0)
+                            <tbody>
+                                @if (count($doctor) > 0)
                                     @foreach ($doctor as $index => $dr)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $dr->hospital_name }}</td>
-                                        <td>{{ $dr->registration_number}} </td>
-                                        <td>{{ $dr->education }}</td>
-                                        <td>{{ $dr->specialization }}</td>
-                                        <td>{{ $dr->address}}</td>
-                                        <td>{{ $dr->email}} </td>
-                                        <td>{{ $dr->contact_number}} </td>
-                                        <td>{{ $dr->date_of_birth }}</td>
-                                        <td>{{ $dr->marriage_anniversary ? $dr->marriage_anniversary : 'Date not Selected'}}</td>
-                                        <td>{{ $dr->created_at}} </td>
-                                        <td>
-                                            <a href="{{ route('doctors.show', ['doctor' => $dr->id]) }}" class="btn btn-sm btn-info" title="View">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('doctors.edit', ['doctor' => $dr->id]) }}" class="btn btn-sm btn-warning" title="Edit">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
-                                        </td>
-                                    </tr> 
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $dr->name }}</td>
+                                          
+                                            <td>{{ $dr->date_of_birth }}</td>
+                                            <td>{{ $dr->marriage_anniversary ? $dr->marriage_anniversary : 'Date not Selected' }}
+                                            </td>
+                                            <td>{{ $dr->created_at }} </td>
+                                            <td>
+                                                @php
+                                                    // Fetch the user information based on created_by
+                                                    $createdByUser = \App\Models\User::find($dr->created_by);
+                                                @endphp
+
+                                                {{ $createdByUser ? $createdByUser->name : 'User not found' }}
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('calendar.preview', ['imageId' => $dr->id]) }}" class="btn btn-sm btn-info" title="View">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                                <a href="{{ route('doctors.edit', ['doctor' => $dr->id]) }}" class="btn btn-sm btn-info" title="Edit">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                
+                                            </td>
+                                        </tr>
                                     @endforeach
-                                    @else
+                                @else
                                     <tr>
-                                        
+
                                         <td colspan="12">No Data Found</td>
                                     </tr>
-                                    @endif
-                                    
-
-                                </tbody>
-                            </table>
+                                @endif
+                            </tbody>
+                        </table>
+ 
 
                         </div>
                     </div>

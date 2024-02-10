@@ -2,156 +2,188 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
- <div class="content">
-                <div class="container-fluid">
-                    <div class="page-title-box">
-                        <div class="row align-items-center">
-                            <div class="col-sm-6">
-                                <h4 class="page-title"><a href="javascript:history.go(-1);">Back</a></h4>
-                            </div>
-                        </div>
-                        <!-- end row -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="page-title-box">
+                <div class="row align-items-center">
+                    <div class="col-sm-6">
+                        <h4 class="page-title"><a href="javascript:history.go(-1);">Back</a></h4>
                     </div>
-                    <!-- end page-title -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end page-title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card m-b-30">
+                        <div class="card-body">
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card m-b-30">
-                                <div class="card-body">
+                            <h4 class="mt-0 header-title text-center mb-3">Add Doctor</h4>
 
-                                    <h4 class="mt-0 header-title text-center mb-3">Add Doctor</h4>
+                            <form method="POST" enctype="multipart/form-data">
+                                @csrf
 
 
-                                    <form method="POST" enctype="multipart/form-data">
-                                        @csrf
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="april_photo" class="col-form-label">April Photo</label>
+                                        <input type="file" class="form-control" name="april_photo" id="april_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
 
-                                        <div class="form-group row">
 
-                                            <label for="hospital_name" class="col-sm-2 col-form-label">Hospital Name</label>
-                                            <div class="col-sm-10">
-                                                <input class="form-control" type="text" name="hospital_name"
-                                                    placeholder="XYZ Hospital" id="hospital_name">
-                                            </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="may_photo" class="col-form-label">May Photo</label>
+                                        <input type="file" class="form-control" name="may_photo" id="may_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="june_photo" class="col-form-label">June Photo</label>
+                                        <input type="file" class="form-control" name="june_photo" id="june_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="july_photo" class="col-form-label">July Photo</label>
+                                        <input type="file" class="form-control" name="july_photo" id="july_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="august_photo" class="col-form-label">August Photo</label>
+                                        <input type="file" class="form-control" name="august_photo" id="august_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="september_photo" class="col-form-label">September Photo</label>
+                                        <input type="file" class="form-control" name="september_photo"
+                                            id="september_photo" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="october_photo" class="col-form-label">October Photo</label>
+                                        <input type="file" class="form-control" name="october_photo" id="october_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="november_photo" class="col-form-label">November Photo</label>
+                                        <input type="file" class="form-control" name="november_photo" id="november_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="december_photo" class="col-form-label">December Photo</label>
+                                        <input type="file" class="form-control" name="december_photo" id="december_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="january_photo" class="col-form-label">January Photo</label>
+                                        <input type="file" class="form-control" name="january_photo"
+                                            id="january_photo" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="february_photo" class="col-form-label">February Photo</label>
+                                        <input type="file" class="form-control" name="february_photo"
+                                            id="february_photo" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="march_photo" class="col-form-label">March Photo</label>
+                                        <input type="file" class="form-control" name="march_photo" id="march_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="name" class="col-form-label">Doctor Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Dr.</span>
+                                            <input class="form-control" type="text" name="name" placeholder="John"
+                                                id="john">
                                         </div>
-
-                                        <div class="form-group row">
-
-                                            <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" type="text" name="name" placeholder="John"
-                                                    id="john">
-                                            </div>
-                                            <label for="registration_number" class="col-sm-2 col-form-label">Registration
-                                                Number</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" type="text" name="registration_number"
-                                                    maxlength="21" minlength="20" placeholder="5673456"
-                                                    id="registration_number">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group row">
-
-                                            <label for="example-search-input" class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" type="email" placeholder="john@example.com"
-                                                    name="email" id="email">
-                                            </div>
-                                            <label for="contact_number" class="col-sm-2 col-form-label">Phone</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" type="number" placeholder="+91-1234567890"
-                                                    name="contact_number" id="contact_number">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group row">
-
-                                            <label for="education" class="col-sm-2 col-form-label">Education</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" type="text"
-                                                    placeholder="MD, or Doctor of Medicine" name="education" id="education">
-                                            </div>
-
-
-                                            <label for="example-search-input"
-                                                class="col-sm-2 col-form-label">specialization</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" type="text"
-                                                    placeholder="Cardiologists , Endocrinologist etc" name="specialization"
-                                                    id="specialization">
-                                            </div>
-
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="address" class="col-sm-2 col-form-label">Address:</label>
-                                            <div class="col-sm-10">
-                                                <textarea class="form-control" placeholder="872/2 Building, Street..." name="address" id="address" rows="4"></textarea>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="form-group row">
-                                            <label for="example-date-input" class="col-sm-2 col-form-label">Date of
-                                                Birth</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" type="date" name="date_of_birth"
-                                                    id="date_of_birth">
-                                            </div>
-
-                                            <label for="marriage_anniversary" class="col-sm-2 col-form-label">Marriage
-                                                Anniversary</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" type="date" name="marriage_anniversary"
-                                                    id="marriage_anniversary">
-                                            </div>
-
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label">Upload Photo</label>
-                                            <div class="col-sm-4">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="upload_photo_option" id="upload_photo_yes" value="yes">
-                                                    <label class="form-check-label" for="upload_photo_yes">Yes</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio"
-                                                        name="upload_photo_option" id="upload_photo_no" value="no"
-                                                        checked>
-                                                    <label class="form-check-label" for="upload_photo_no">No</label>
-                                                </div>
-                                            </div>
-
-                                            <label for="photo" class="col-sm-2 col-form-label">Photo Upload</label>
-                                            <div class="col-sm-4">
-                                                <input type="file" class="form-control" name="photo[]" id="photo"
-                                                    accept="image/*" multiple style="display: none;">
-                                            </div>
-
-
-                                        </div>
-                                        <div class="col-sm-6 text-right">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                            <button type="reset" class="btn btn-secondary">Reset</button>
-                                        </div>
-                                    </form>
+                                    </div>
 
 
                                 </div>
-                            </div>
-                        </div> <!-- end col -->
-                    </div> <!-- end row -->
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="special_month" class="col-form-label">Select Option</label>
+                                        <select class="form-control" id="special_month" onchange="toggleCalendar()">
+                                            <option value="normal" selected>NaN</option>
+                                            <option value="special">Special Month</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="normalCalendar" style="display: none;">
+                                    <div class="col-sm-12">
+                                        <label for="example-date-input" class="col-form-label">Date of Birth</label>
+                                        <input class="form-control" type="date" name="date_of_birth"
+                                            id="date_of_birth">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="marriage_anniversary" class="col-form-label">Marriage
+                                            Anniversary</label>
+                                        <input class="form-control" type="date" name="marriage_anniversary"
+                                            id="marriage_anniversary">
+                                    </div>
+                                </div>
+
+                                <div class="row" id="specialCalendar" style="display: none;">
+                                    <!-- Add your special calendar inputs here -->
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 text-center">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
 
 
-                </div>
-                <!-- container-fluid -->
+        </div>
+        <!-- container-fluid -->
 
-            </div>
-            <!-- content -->
+    </div>
+    <!-- content -->
 @endsection
 
 @section('extra_css')
@@ -173,6 +205,26 @@
     <script src="{{ asset('plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <!-- Datatable init js -->
     <script src="{{ asset('assets/pages/datatables.init.js') }}"></script>
+
+    <script>
+        function toggleCalendar() {
+            var option = document.getElementById("special_month").value;
+            var normalCalendar = document.getElementById("normalCalendar");
+            var specialCalendar = document.getElementById("specialCalendar");
+
+            if (option != "special") {
+                normalCalendar.style.display = "none";
+                specialCalendar.style.display = "block";
+            } else {
+                normalCalendar.style.display = "block";
+                specialCalendar.style.display = "none";
+            }
+        }
+
+        // Call toggleCalendar on page load to set the initial state
+        toggleCalendar();
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Get radio buttons and photo upload element
@@ -230,7 +282,8 @@
 
                             // Redirect after 3 seconds
                             setTimeout(function() {
-                                window.location.href = '{{ route('mr-dashboard.index') }}';
+                                window.location.href =
+                                    '{{ route('mr-dashboard.index') }}';
                             }, 3000);
                         } else {
                             // Show Toastr error notification

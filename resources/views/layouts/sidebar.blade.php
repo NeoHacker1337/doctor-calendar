@@ -21,10 +21,7 @@
                 <li>
                     <a href="{{ route('marketing-representative.index')}}" class="waves-effect"><i class="fas fa-user-md"></i><span>MR </span></a>
                 </li>
-
-                <li>
-                    <a href="calendar.html" class="waves-effect"><i class="icon-calendar"></i><span> Calendar </span></a>
-                </li>
+ 
                 @else  
  
                 <li>

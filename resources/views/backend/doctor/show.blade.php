@@ -1,7 +1,5 @@
 @extends('layouts.employeemaster')
 @section('content')
-
-
     <!-- Start content -->
     <div class="content">
         <div class="container-fluid">
@@ -36,68 +34,125 @@
                                     <tr>
                                         <th>S.No.</th>
                                         <th>Dr. Photo</th>
-                                        <th>Month</th>
-                                        <th>Year</th>
                                         <th>Action</th>
-
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @if ($doctor)
-                                        @foreach ($doctorImage as $index => $dr)
-                                            <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                                <td> <img src="{{ asset($dr->path) }}" alt=""
-                                                        height="200px" width="200px"></td>
+                                    <tr>
+                                        <td>1.</td>
+                                        <td><img src="{{ asset($doctor->april_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
+                                    <tr>
+                                        <td>2.</td>
+                                        <td><img src="{{ asset($doctor->may_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
+                                    <tr>
+                                        <td>3.</td>
+                                        <td><img src="{{ asset($doctor->june_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
 
-                                                <td>
-                                                    <select name="month_dropdown">
-                                                        @for ($monthValue = 1; $monthValue <= 12; $monthValue++)
-                                                            <option value="{{ $monthValue }}"
-                                                                @if ($monthValue == $index + 1) selected @endif>
-                                                                {{ date('F', mktime(0, 0, 0, $monthValue, 1)) }}
-                                                            </option>
-                                                        @endfor
-                                                    </select>
-                                                </td>
+                                    <tr>
+                                        <td>4.</td>
+                                        <td><img src="{{ asset($doctor->july_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
 
-                                                <td>
-                                                    <select name="year">
-                                                        @for ($year = 2024; $year <= 2034; $year++)
-                                                            <option value="{{ $year }}">{{ $year }}</option>
-                                                        @endfor
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                     
-                                                    {{-- <button class="btn btn-primary downloadbtn"
-                                                        data-image-id="{{ $dr->id }}"
-                                                        data-month-dropdown-class="month-dropdown"
-                                                        data-year-dropdown-class="year-dropdown">
-                                                        <i class="fas fa-download"></i>
-                                                    </button> --}}
- 
-                                                    <button class="btn btn-primary previewBtn"
-                                                        data-image-id="{{ $dr->id }}"
-                                                        data-month-dropdown-class="month-dropdown"
-                                                        data-year-dropdown-class="year-dropdown">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
+                                    <tr>
+                                        <td>5.</td>
+                                        <td><img src="{{ asset($doctor->august_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
 
-                                                    {{-- <button class="btn btn-secondary"><i class="fas fa-share"></i></button> --}}
-                                                </td>
+                                    <tr>
+                                        <td>6.</td>
+                                        <td><img src="{{ asset($doctor->september_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
 
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
+                                    <tr>
+                                        <td>7.</td>
+                                        <td><img src="{{ asset($doctor->october_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
 
-                                            <td colspan="12">No Data Found</td>
-                                        </tr>
-                                    @endif
+                                    <tr>
+                                        <td>8.</td>
+                                        <td><img src="{{ asset($doctor->november_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
 
-
+                                    <tr>
+                                        <td>9.</td>
+                                        <td><img src="{{ asset($doctor->december_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
+                                    <tr>
+                                        <td>10.</td>
+                                        <td><img src="{{ asset($doctor->january_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
+                                    <tr>
+                                        <td>11.</td>
+                                        <td><img src="{{ asset($doctor->february_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
+                                    <tr>
+                                        <td>12.</td>
+                                        <td><img src="{{ asset($doctor->march_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                        <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                                data-month-dropdown-class="month-dropdown"
+                                                data-year-dropdown-class="year-dropdown">
+                                                <i class="fas fa-eye"></i>
+                                            </button></th>
+                                    </tr>
                                 </tbody>
                             </table>
 
@@ -110,7 +165,6 @@
         </div>
         <!-- container-fluid -->
     </div>
-
 @endsection
 
 @section('extra_css')
@@ -142,7 +196,7 @@
                 var imageId = $(this).data('image-id');
                 var monthDropdownValue = $(this).closest('tr').find('select[name="month_dropdown"]').val();
                 var yearDropdownValue = $(this).closest('tr').find('select[name="year"]').val();
-
+ 
                 // Create FormData object
                 var formData = new FormData();
                 formData.append('imageId', imageId);

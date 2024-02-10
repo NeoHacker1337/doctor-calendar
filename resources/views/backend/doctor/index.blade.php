@@ -31,17 +31,9 @@
                                 <thead>
                                     <tr>
                                         <th>S.No.</th>
-                                        <th>Hospital Name</th>
-                                        <th>Registration No.</th>
-                                        <th>Education</th>
-                                        <th>Specialization</th>
-                                        <th>Address</th>
-                                        <th>Email</th>
-                                        <th>Mobile</th>
+                                        <th>Doctor Name</th>                                        
                                         <th>DOB</th>
-                                        <th>Marriage Anniversary</th>
-                                        <th>Date of Joining</th>
-                                        <th>Add By</th>
+                                        <th>Marriage Anniversary</th>                                         
                                         <th>Action</th>
 
                                     </tr>
@@ -52,13 +44,8 @@
                                         @foreach ($doctor as $index => $dr)
                                             <tr>
                                                 <td>{{ $index + 1 }}</td>
-                                                <td>{{ $dr->hospital_name }}</td>
-                                                <td>{{ $dr->registration_number }} </td>
-                                                <td>{{ $dr->education }}</td>
-                                                <td>{{ $dr->specialization }}</td>
-                                                <td>{{ $dr->address }}</td>
-                                                <td>{{ $dr->email }} </td>
-                                                <td>{{ $dr->contact_number }} </td>
+                                                <td>{{ $dr->name }}</td>
+                                              
                                                 <td>{{ $dr->date_of_birth }}</td>
                                                 <td>{{ $dr->marriage_anniversary ? $dr->marriage_anniversary : 'Date not Selected' }}
                                                 </td>

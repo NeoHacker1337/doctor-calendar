@@ -18,132 +18,135 @@
                     <div class="card m-b-30">
                         <div class="card-body">
 
-                            <h4 class="mt-0 header-title text-center mb-3">Add Doctor</h4>
+                            <h4 class="mt-0 header-title text-center mb-3">Edit Doctor</h4>
 
+                            <table class="table table-striped table-bordered dt-responsive nowrap" id="mrTable"
+                            style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>S.No.</th>
+                                    <th>Dr. Photo</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-                            <form method="POST" enctype="multipart/form-data" id="editDoctorForm">
+                            <tbody>
+                                <tr>
+                                    <td>1.</td>
+                                    <td><img src="{{ asset($doctor->april_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
+                                <tr>
+                                    <td>2.</td>
+                                    <td><img src="{{ asset($doctor->may_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
+                                <tr>
+                                    <td>3.</td>
+                                    <td><img src="{{ asset($doctor->june_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
 
-                                @csrf
+                                <tr>
+                                    <td>4.</td>
+                                    <td><img src="{{ asset($doctor->july_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
 
-                                <input type="hidden" name="id" value="{{ $doctor->id }}">
+                                <tr>
+                                    <td>5.</td>
+                                    <td><img src="{{ asset($doctor->august_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
 
-                                <div class="form-group row">
+                                <tr>
+                                    <td>6.</td>
+                                    <td><img src="{{ asset($doctor->september_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
 
-                                    <label for="hospital_name" class="col-sm-2 col-form-label">Hospital Name</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" name="hospital_name"
-                                            placeholder="XYZ Hospital" id="hospital_name"
-                                            value="{{ $doctor->hospital_name }}">
-                                    </div>
-                                </div>
+                                <tr>
+                                    <td>7.</td>
+                                    <td><img src="{{ asset($doctor->october_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
 
-                                <div class="form-group row">
+                                <tr>
+                                    <td>8.</td>
+                                    <td><img src="{{ asset($doctor->november_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
 
-                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" type="text" name="name" placeholder="John"
-                                            id="john" value="{{ $doctor->name }}">
-                                    </div>
-                                    <label for="registration_number" class="col-sm-2 col-form-label">Registration
-                                        Number</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" type="text" name="registration_number" maxlength="21"
-                                            minlength="20" placeholder="5673456" id="registration_number"
-                                            value="{{ $doctor->registration_number }}">
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
-
-                                    <label for="example-search-input" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" type="email" value="{{ $doctor->email }}"
-                                            placeholder="john@example.com" name="email" id="email">
-                                    </div>
-                                    <label for="contact_number" class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" type="number" placeholder="+91-1234567890"
-                                            name="contact_number" id="contact_number" value="{{ $doctor->contact_number }}">
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row">
-
-                                    <label for="education" class="col-sm-2 col-form-label">Education</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" type="text" placeholder="MD, or Doctor of Medicine"
-                                            name="education" id="education" value="{{ $doctor->education }}">
-                                    </div>
-
-
-                                    <label for="example-search-input" class="col-sm-2 col-form-label">specialization</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" type="text"
-                                            placeholder="Cardiologists , Endocrinologist etc" name="specialization"
-                                            id="specialization" value="{{ $doctor->specialization }}">
-                                    </div>
-
-
-                                </div>
-                                <div class="form-group row">
-                                    <label for="address" class="col-sm-2 col-form-label">Address:</label>
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" placeholder="872/2 Building, Street..." name="address" id="address" rows="4">{{ $doctor->address }}</textarea>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="form-group row">
-                                    <label for="example-date-input" class="col-sm-2 col-form-label">Date of
-                                        Birth</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" type="date" name="date_of_birth"
-                                            id="date_of_birth" value="{{ $doctor->date_of_birth }}">
-                                    </div>
-
-                                    <label for="marriage_anniversary" class="col-sm-2 col-form-label">Marriage
-                                        Anniversary</label>
-                                    <div class="col-sm-4">
-                                        <input class="form-control" type="date" name="marriage_anniversary"
-                                            id="marriage_anniversary" value="{{ $doctor->marriage_anniversary }}">
-                                    </div>
-
-                                </div>
-                                {{-- <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Upload Photo</label>
-                                <div class="col-sm-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="upload_photo_option" id="upload_photo_yes"
-                                            value="yes">
-                                        <label class="form-check-label" for="upload_photo_yes">Yes</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="upload_photo_option" id="upload_photo_no"
-                                            value="no" checked>
-                                        <label class="form-check-label" for="upload_photo_no">No</label>
-                                    </div>
-                                </div>
-                        
-                                <label for="photo" class="col-sm-2 col-form-label">Photo Upload</label>
-                                <div class="col-sm-4">
-                                    <input type="file" class="form-control" name="photo[]" id="photo" accept="image/*" multiple
-                                        style="display: none;">
-                                </div>
-                        
-                        
-                            </div> --}}
-
-
-                                <div class="col-sm-6 text-right">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                    <a href="{{ route('mr-dashboard.index') }}"
-                                        class="btn btn-secondary">Cancel</a>
-                                </div>
-                            </form>
-
+                                <tr>
+                                    <td>9.</td>
+                                    <td><img src="{{ asset($doctor->december_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
+                                <tr>
+                                    <td>10.</td>
+                                    <td><img src="{{ asset($doctor->january_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
+                                <tr>
+                                    <td>11.</td>
+                                    <td><img src="{{ asset($doctor->february_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
+                                <tr>
+                                    <td>12.</td>
+                                    <td><img src="{{ asset($doctor->march_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
+                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
+                                            data-month-dropdown-class="month-dropdown"
+                                            data-year-dropdown-class="year-dropdown">
+                                            <i class="fas fa-eye"></i>
+                                        </button></th>
+                                </tr>
+                            </tbody>
+                        </table>
 
                         </div>
                     </div>
