@@ -83,7 +83,7 @@ class AuthController extends Controller
         Auth::guard('admin')->logout(); // Use the appropriate guard ('web' is the default for user authentication)
 
         // Optionally, you can redirect the user to a specific page after logout
-        return redirect('/')->with('status', 'Logged out successfully');
+        return redirect('/admin')->with('status', 'Logged out successfully');
     }
 
     public function mrlogout()
