@@ -174,57 +174,117 @@ class DoctorController extends Controller
      */
     public function updateDoctor(Request $request, $id)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'hospital_name' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
-            'registration_number' => 'required|string|max:23|min:19',
-            'email' => 'required|email|max:255',
-            'contact_number' => 'required|string|max:15',
-            'education' => 'required|string|max:255',
-            'specialization' => 'required|string|max:255',
-            'address' => 'nullable|string|max:255',
-            'date_of_birth' => 'required|date',
-            'marriage_anniversary' => 'nullable|date',
-            'upload_photo_option' => 'nullable|in:yes,no',
-            'photo' => 'nullable|array|max:12', // Assuming 'photo' is the name of your file input
-            'photo.*' => 'image|mimes:jpeg,png,jpg,gif|max:4048', // Adjust the mime types and max size as needed
+        // dd($request->id);
+        $request->validate([
+            'name' => 'required|string',
+            'date_of_birth' => 'nullable|date',
         ]);
-
-        // Find the doctor by ID
-        $doctor = Doctor::findOrFail($request->input('id'));
-
-        // Update the doctor data based on the request
-        $doctor->hospital_name = $request->input('hospital_name');
+        $doctor = Doctor::findOrFail($request->id);
         $doctor->name = $request->input('name');
-        $doctor->registration_number = $request->input('registration_number');
-        $doctor->email = $request->input('email');
-        $doctor->contact_number = $request->input('contact_number');
-        $doctor->education = $request->input('education');
-        $doctor->specialization = $request->input('specialization');
-        $doctor->address = $request->input('address');
         $doctor->date_of_birth = $request->input('date_of_birth');
         $doctor->marriage_anniversary = $request->input('marriage_anniversary');
-        $doctor->created_by = Auth::guard('admin')->user()->id; // Assuming you want to track who updated the record
-        $doctor->save();
 
-        // Handle photo upload if 'upload_photo_option' is 'yes'
-        if ($request->input('upload_photo_option') === 'yes' && $request->hasFile('photo')) {
-            foreach ($request->file('photo') as $photo) {
-                // Generate a unique filename
-                $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $photo->extension();
 
-                // Upload image to storage (assuming you are using the 'public' disk)
-                $path = $photo->storeAs('public/doctor_images', $fileName);
+        if ($request->file('april_photo')) {
+            $april_photo = $request->file('april_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $april_photo->extension();
 
-                // Create a new doctor image record
-                $doctorImages = new DoctorImages();
-                $doctorImages->doctor_id = $doctor->id;
-                $doctorImages->path = $path; // Store the full path
-                $doctorImages->created_by = Auth::guard('admin')->user()->id;
-                $doctorImages->save();
-            }
+            // Move the image to the public/doctor_images directory
+            $april_photo->move(public_path('doctor_images'), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->april_photo = 'doctor_images/' . $fileName;
         }
+        if ($request->file('may_photo')) {
+            $may_photo = $request->file('may_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $may_photo->extension();
+            // Upload image to public directory
+            $may_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->may_photo  = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('june_photo')) {
+            $june_photo = $request->file('june_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $june_photo->extension();
+            // Upload image to public directory
+            $june_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->june_photo  = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('july_photo')) {
+            $july_photo = $request->file('july_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $july_photo->extension();
+            // Upload image to public directory
+            $july_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->july_photo = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('august_photo')) {
+            $august_photo = $request->file('august_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $august_photo->extension();
+            // Upload image to public directory
+            $august_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->august_photo = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('september_photo')) {
+            $september_photo = $request->file('september_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $september_photo->extension();
+            // Upload image to public directory
+            $september_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->september_photo = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('october_photo')) {
+            $october_photo = $request->file('october_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $october_photo->extension();
+            // Upload image to public directory
+            $october_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->october_photo  = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('november_photo')) {
+            $november_photo = $request->file('november_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $november_photo->extension();
+            // Upload image to public directory
+            $november_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->november_photo  = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('december_photo')) {
+            $december_photo = $request->file('december_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $december_photo->extension();
+            // Upload image to public directory
+            $december_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->december_photo = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('january_photo')) {
+            $january_photo = $request->file('january_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $january_photo->extension();
+            // Upload image to public directory
+            $january_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->january_photo = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('february_photo')) {
+            $february_photo = $request->file('february_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $february_photo->extension();
+            // Upload image to public directory
+            $february_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->february_photo  = 'doctor_images/' . $fileName;
+        }
+        if ($request->file('march_photo')) {
+            $march_photo = $request->file('march_photo');
+            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $march_photo->extension();
+            // Upload image to public directory
+            $march_photo->move(public_path('doctor_images'), $fileName);
+
+            $doctor->march_photo = 'doctor_images/' . $fileName;
+        }
+        $doctor->created_by  = Auth::guard('admin')->user()->id;
+        $doctor->save();
         return response()->json(['success' => true]);
     }
 

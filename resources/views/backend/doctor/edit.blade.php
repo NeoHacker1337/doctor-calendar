@@ -19,28 +19,229 @@
                         <div class="card-body">
 
                             <h4 class="mt-0 header-title text-center mb-3">Edit Doctor</h4>
+                            <form method="POST" enctype="multipart/form-data">
+                                @csrf
 
-                            <table class="table table-striped table-bordered dt-responsive nowrap" id="mrTable"
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="april_photo" class="col-form-label d-block">April Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->april_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="april_photo" id="april_photo" accept="image/*">
+                                    </div>
+                                </div>
+                                
+                                
+                                
+
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="may_photo" class="col-form-label d-block">May Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->may_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="may_photo" id="may_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="june_photo" class="col-form-label d-block">June Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->june_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="june_photo" id="june_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="july_photo" class="col-form-label d-block">July Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->july_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="july_photo" id="july_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="august_photo" class="col-form-label d-block">August Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->august_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="august_photo" id="august_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="september_photo" class="col-form-label d-block">September Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->september_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="september_photo"
+                                            id="september_photo" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="october_photo" class="col-form-label d-block">October Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->october_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="october_photo" id="october_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="november_photo" class="col-form-label d-block">November Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->november_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="november_photo" id="november_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="december_photo" class="col-form-label d-block">December Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->december_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="december_photo" id="december_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="january_photo" class="col-form-label d-block">January Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->january_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="january_photo"
+                                            id="january_photo" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="february_photo" class="col-form-label d-block">February Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->february_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="february_photo"
+                                            id="february_photo" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="march_photo" class="col-form-label d-block">March Photo</label>
+                                        <div>
+                                            <img src="{{ asset($doctor->march_photo) }}" alt="{{ $doctor->name }}" width="100px" height="150px">
+                                        </div>
+                                        <input type="file" class="form-control mt-2" name="march_photo" id="march_photo"
+                                            accept="image/*">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="name" class="col-form-label d-block">Doctor Name</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Dr.</span>
+                                            <input class="form-control mt-2" type="text" name="name" placeholder="John"
+                                                id="john"value="{{ $doctor->name }}">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-sm-12">
+                                        <label for="special_month" class="col-form-label">Select Option</label>
+                                        <select class="form-control mt-2" id="special_month" onchange="toggleCalendar()">
+                                            <option value="normal" selected>NaN</option>
+                                            <option value="special">Special Month</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4" id="normalCalendar" style="display: none;">
+                                    <div class="col-sm-12">
+                                        <label for="example-date-input" class="col-form-label">Date of Birth</label>
+                                        <input class="form-control mt-2" type="date" name="date_of_birth"
+                                            id="date_of_birth" value="{{ $doctor->date_of_birth}}">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="marriage_anniversary" class="col-form-label">Marriage
+                                            Anniversary</label>
+                                        <input class="form-control mt-2" type="date" name="marriage_anniversary"
+                                            id="marriage_anniversary" value="{{ $doctor->marriage_anniversary }}">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4" id="specialCalendar" style="display: none;">
+                                    <!-- Add your special calendar inputs here -->
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 text-center">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="reset" class="btn btn-secondary">Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            {{-- <table class="table table-striped table-bordered dt-responsive nowrap" id="mrTable"
                             style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>S.No.</th>
                                     <th>Dr. Photo</th>
-                                    <th>Action</th>
+                                    
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <tr>
                                     <td>1.</td>
-                                    <td><img src="{{ asset($doctor->april_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
-                                    <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
-                                            data-month-dropdown-class="month-dropdown"
-                                            data-year-dropdown-class="year-dropdown">
-                                            <i class="fas fa-eye"></i>
-                                        </button></th>
-                                </tr>
-                                <tr>
+                                    <td >
+                                        <div class="row" style="display: flex; align-items: center;">
+                                            <div class="col-md-3">
+                                                <img src="{{ asset($doctor->april_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px">
+                                            </div>
+                                            <div class="col-md-9 d-flex align-items-center justify-content-center">
+                                                <input type="file" class="form-control w-50" name="april_photo" id="april_photo" accept="image/*">
+                                            </div>
+                                        </div>
+                                       <div class="text-center mt-2"> <button class="btn btn-primary"
+                                        >
+                                         Save
+                                     </button></div>
+                                    </td>
+                                    
+                                    
+                                </tr> --}}
+                                {{-- <tr>
                                     <td>2.</td>
                                     <td><img src="{{ asset($doctor->may_photo) }}" alt="{{ $doctor->name }}" width="200px" height="250px"></td>
                                     <th> <button class="btn btn-primary previewBtn" data-image-id="{{ $doctor->id }}"
@@ -144,7 +345,7 @@
                                             data-year-dropdown-class="year-dropdown">
                                             <i class="fas fa-eye"></i>
                                         </button></th>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
 
@@ -208,6 +409,24 @@
         });
     </script>
 
+<script>
+    function toggleCalendar() {
+        var option = document.getElementById("special_month").value;
+        var normalCalendar = document.getElementById("normalCalendar");
+        var specialCalendar = document.getElementById("specialCalendar");
+
+        if (option != "special") {
+            normalCalendar.style.display = "none";
+            specialCalendar.style.display = "block";
+        } else {
+            normalCalendar.style.display = "block";
+            specialCalendar.style.display = "none";
+        }
+    }
+
+    // Call toggleCalendar on page load to set the initial state
+    toggleCalendar();
+</script>
     <script>
         $(document).ready(function() {
             $('form').submit(function(e) {
