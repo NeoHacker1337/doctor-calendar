@@ -50,7 +50,7 @@ Route::group(['middleware' => ['mr']], function () {
     Route::resource('doctors', DoctorController::class);
     Route::post('/update/doctor/{id}', [DoctorController::class, 'updateDoctor'])->name('update.doctor');
     Route::get('doctor-calendar-preview', [DoctorController::class, 'calendarpreview'])->name('calendar.preview');
-    Route::POST('mr-logout', [AuthController::class, 'mrlogout'])->name('mrlogout');
+    Route::get('mr-logout', [AuthController::class, 'mrlogout'])->name('mrlogout');
 
 
     Route::post('download-pdf', [DoctorController::class, 'downloadpdfDoctor'])->name('download.calendar.pdf');

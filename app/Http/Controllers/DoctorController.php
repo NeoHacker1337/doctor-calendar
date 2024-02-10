@@ -33,6 +33,13 @@ class DoctorController extends Controller
             'date_of_birth' => 'nullable|date',
 
         ]);
+
+        $doctor_count = Doctor::where('created_by', Auth::guard('admin')->user()->id)->count();
+        if ($doctor_count >= 10) {
+            return response()->json(['error' => false]);
+            exit;
+        }
+
         $doctor = new Doctor();
         $doctor->name = 'Dr.' . $request->input('name');
         $doctor->date_of_birth = Carbon::createFromFormat('Y-m-d', $request->input('date_of_birth'))->toDateString();
