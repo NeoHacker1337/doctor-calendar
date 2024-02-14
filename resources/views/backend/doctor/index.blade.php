@@ -33,7 +33,9 @@
                                         <th>S.No.</th>
                                         <th>Doctor Name</th>                                        
                                         <th>DOB</th>
-                                        <th>Marriage Anniversary</th>                                         
+                                        <th>Marriage Anniversary</th>   
+                                        <th>MR NAME</th>              
+                                        <th>Doctor Join Date</th>                        
                                         <th>Action</th>
 
                                     </tr>
@@ -49,7 +51,7 @@
                                                 <td>{{ $dr->date_of_birth }}</td>
                                                 <td>{{ $dr->marriage_anniversary ? $dr->marriage_anniversary : 'Date not Selected' }}
                                                 </td>
-                                                <td>{{ $dr->created_at }} </td>
+                                               
                                                 <td>
                                                     @php
                                                         // Fetch the user information based on created_by
@@ -57,7 +59,7 @@
                                                     @endphp
 
                                                     {{ $createdByUser ? $createdByUser->name : 'User not found' }}
-                                                </td>
+                                                </td> <td>{{ $dr->created_at }} </td>
                                                 <td>
                                                     <a href="{{ route('admin.calendar.preview', ['imageId' => $dr->id]) }}" class="btn btn-sm btn-info" title="View">
                                                         <i class="fa fa-eye"></i>
@@ -83,7 +85,17 @@
 
         </div>
         <!-- container-fluid -->
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                @if (Auth::guard('admin')->user()->role === 'admin')
+                <a href="{{ Route('dashboard.index') }}" class="btn btn-primary">Back</a>
+            @else
+                <h4 class="page-title"></h4>
+            @endif
+                
 
+            </div>
+        </div>
     </div>
     <!-- content -->
 

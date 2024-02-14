@@ -206,6 +206,10 @@
                                     <div class="col-sm-12 text-center">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                         <button type="reset" class="btn btn-secondary">Reset</button>
+                                      
+                                            <a href="{{ route('mr-dashboard.index')}}" class="btn btn-success mx-auto">Back</a>
+                                        
+                                       
                                     </div>
                                 </div>
                             </form>

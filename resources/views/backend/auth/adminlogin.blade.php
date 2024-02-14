@@ -13,7 +13,7 @@
 
                 <div class="text-center m-t-0 m-b-15">
                     <a href="{{ url('/') }}" class="logo logo-admin"><img
-                            src="{{ asset('assets/images/doctor_logo_dark.png') }}" alt="" height="200px"></a>
+                            src="{{ asset('assets/images/doctor_logo_dark.png') }}" alt="" height="100px" width="300px"></a>
                 </div>
 
                 <form class="form-horizontal m-t-30" method="POST" id="submitForm">

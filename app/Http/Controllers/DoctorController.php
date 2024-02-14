@@ -40,10 +40,22 @@ class DoctorController extends Controller
             exit;
         }
 
+        $employee_id = Auth::guard('admin')->user()->employee_id;
+
+        // Increment the doctor_count by 1
+        $doctor_count += 1;
+
+        // Format $index with leading zeros
+        $index = sprintf('%02d', $doctor_count);
+
+        $employeeid = $employee_id . '_' . $index;
+
+
         $doctor = new Doctor();
         $doctor->name = 'Dr.' . $request->input('name');
         $doctor->date_of_birth = Carbon::createFromFormat('Y-m-d', $request->input('date_of_birth'))->toDateString();
         $doctor->marriage_anniversary = Carbon::createFromFormat('Y-m-d', $request->input('marriage_anniversary'))->toDateString();
+        $doctor->calendar_id = $employeeid;
         if ($request->file('april_photo')) {
             $april_photo = $request->file('april_photo');
             $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $april_photo->extension();
@@ -144,7 +156,7 @@ class DoctorController extends Controller
         }
         $doctor->created_by  = Auth::guard('admin')->user()->id;
         $doctor->save();
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'doctor_id' => $doctor->id]);
         // return redirect()->route('doctor.index')->with('success', 'Doctor created successfully!');
     }
 
@@ -185,11 +197,13 @@ class DoctorController extends Controller
             'name' => 'required|string',
             'date_of_birth' => 'nullable|date',
         ]);
+
+
+
         $doctor = Doctor::findOrFail($request->id);
         $doctor->name = $request->input('name');
         $doctor->date_of_birth = $request->input('date_of_birth');
         $doctor->marriage_anniversary = $request->input('marriage_anniversary');
-
 
         if ($request->file('april_photo')) {
             $april_photo = $request->file('april_photo');
@@ -343,28 +357,116 @@ class DoctorController extends Controller
         return view('backend.doctor.print-calendar', compact('doctordetails', 'calendarData', 'year', 'month', 'formattedMonth', 'formattedMonthNumber', 'calendarDataMay', 'calendarDatajune', 'calendarDatajuly', 'calendarDataMayaugust', 'calendarDataMayseptember', 'calendarDataMayoctober', 'calendarDataMaynovember', 'calendarDataMaydecember', 'calendarDatajanuary', 'calendarDatafebruary', 'calendarDatamarch'));
     }
 
+    // private function generateCalendar($year, $month, $doctordetails)
+    // {
+    //     $cal = new \DateTime("$year-$month-01");
+
+    //     $lastDay = (int)$cal->format('t');
+
+    //     $dateOfBirth = new \DateTime($doctordetails->date_of_birth);
+    //     $marriageAnniversary = new \DateTime($doctordetails->marriage_anniversary);
+
+    //     $calendarHTML = "<style>
+    //     .custom-font-table {
+    //         width: 100%;
+    //         border-collapse: collapse;
+    //         height: 200px;
+    //         font-family: 'DinMedium', sans-serif; /* Replace 'DinMedium' with the correct font-family name */
+    //     }
+    // </style>
+    // <h4 id='monthAndYear' class='text-center mb-4'>{$cal->format('F')} | {$cal->format('m')} | $year</h4>
+    // <table style='width:100%; border-collapse: collapse; height:200px;'>
+    //     <tr>
+    //         <th style='width: 14.2857%;'>Sun</th>
+    //         <th style='width: 14.2857%;'>Mon</th>
+    //         <th style='width: 14.2857%;'>Tue</th>
+    //         <th style='width: 14.2857%;'>Wed</th>
+    //         <th style='width: 14.2857%;'>Thu</th>
+    //         <th style='width: 14.2857%;'>Fri</th>
+    //         <th style='width: 14.2857%;'>Sat</th>
+    //     </tr>";
+
+
+    //     $day = 1;
+    //     for ($i = 0; $i < 6; $i++) {
+    //         $calendarHTML .= '<tr>';
+    //         for ($j = 0; $j < 7; $j++) {
+    //             if ($i === 0 && $j < $cal->format('w')) {
+    //                 $calendarHTML .= '<td></td>';
+    //             } elseif ($day > $lastDay) {
+    //                 break;
+    //             } else {
+    //                 $currentDate = new \DateTime("$year-$month-" . sprintf("%02d", $day));
+    //                 $currentDateFormatted = $currentDate->format('m-d');
+    //                 $dateOfBirthFormatted = $dateOfBirth->format('m-d');
+    //                 $marriageAnniversaryFormatted = $marriageAnniversary->format('m-d');
+
+    //                 $highlightClass = '';
+
+    //                 if ($currentDateFormatted == $dateOfBirthFormatted) {
+
+    //                     $highlightClass .= ' highlight-date-birth';
+    //                 }
+
+    //                 if ($currentDateFormatted == $marriageAnniversaryFormatted) {
+
+    //                     $highlightClass .= ' highlight-date-anniversary';
+    //                 }
+
+    //                 $calendarHTML .= "<td class='$highlightClass'>$day</td>";
+    //                 $day++;
+    //             }
+    //         }
+    //         $calendarHTML .= '</tr>';
+    //     }
+
+    //     $calendarHTML .= '</table>';
+
+    //     return $calendarHTML;
+    // }
+
     private function generateCalendar($year, $month, $doctordetails)
     {
         $cal = new \DateTime("$year-$month-01");
-
+    
         $lastDay = (int)$cal->format('t');
-
+    
         $dateOfBirth = new \DateTime($doctordetails->date_of_birth);
         $marriageAnniversary = new \DateTime($doctordetails->marriage_anniversary);
-
-        $calendarHTML = "<h4 id='Year' class='text-right mb-4'>$year</h4>
-                    <h4 id='monthAndYear' class='text-center mb-4'>{$cal->format('F')} | {$cal->format('m')}</h4>
-                    <table style='width:100%; border-collapse: collapse; height:200px;'>
-                        <tr>
-                            <th>Sun</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                        </tr>";
-
+    
+        $calendarHTML = "<style>
+            .custom-font-table {
+                width: 100%;
+                border-collapse: collapse;
+                height: 200px;
+                font-family: 'DinMedium', sans-serif; /* Replace 'DinMedium' with the correct font-family name */
+            }
+            th, td {
+                text-align: center;
+            }
+            .highlight-date-birth {
+                color: red;
+            }
+            .highlight-date-anniversary {
+                color: red;
+            }
+            .highlight-sunday {
+                color: red;
+                font-weight: bold;
+            }
+        </style>
+        <h4 id='monthAndYear' class='text-center mb-4' style='color:#000080;'>{$cal->format('F')} | {$cal->format('m')} | $year</h4>
+        <table class='custom-font-table'>
+            <tr>
+                <th style='width: 14.2857%;' class='highlight-sunday'>Sun</th>
+                <th style='width: 14.2857%;'>Mon</th>
+                <th style='width: 14.2857%;'>Tue</th>
+                <th style='width: 14.2857%;'>Wed</th>
+                <th style='width: 14.2857%;'>Thu</th>
+                <th style='width: 14.2857%;'>Fri</th>
+                <th style='width: 14.2857%;'>Sat</th>
+            </tr>";
+    
         $day = 1;
         for ($i = 0; $i < 6; $i++) {
             $calendarHTML .= '<tr>';
@@ -378,28 +480,31 @@ class DoctorController extends Controller
                     $currentDateFormatted = $currentDate->format('m-d');
                     $dateOfBirthFormatted = $dateOfBirth->format('m-d');
                     $marriageAnniversaryFormatted = $marriageAnniversary->format('m-d');
-
+    
                     $highlightClass = '';
-
+    
                     if ($currentDateFormatted == $dateOfBirthFormatted) {
-
                         $highlightClass .= ' highlight-date-birth';
                     }
-
+    
                     if ($currentDateFormatted == $marriageAnniversaryFormatted) {
-
                         $highlightClass .= ' highlight-date-anniversary';
                     }
-
+    
+                    if ($j == 0) {
+                        $highlightClass .= ' highlight-sunday';
+                    }
+    
                     $calendarHTML .= "<td class='$highlightClass'>$day</td>";
                     $day++;
                 }
             }
             $calendarHTML .= '</tr>';
         }
-
+    
         $calendarHTML .= '</table>';
-
+    
         return $calendarHTML;
     }
+    
 }

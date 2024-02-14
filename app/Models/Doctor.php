@@ -26,5 +26,6 @@ class Doctor extends Model
         'january_photo',
         'february_photo',
         'march_photo',
+        'calendar_id'
     ];
 }

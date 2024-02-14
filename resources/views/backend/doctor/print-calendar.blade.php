@@ -46,232 +46,213 @@
 
 <body>
 
+
     <div id="wrapperDiv">
+        {{-- div start april  --}}
         <div id="calendarDiv"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
-                    </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->april_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
-                    </div>
-                    <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 04)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
-                        @endif
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 04)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
-                        @endif
-                    </div>
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->april_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
                 </div>
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
+                    </div>
+
+                    <main style="margin-top: 0px;">
                         <div id="calendar-container">
                             {!! $calendarData !!}
                         </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
                     </main>
+
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
+                    </div>
+
+                    <div class="text-center">
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 04)
+                            <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
+                        @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 04)
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
+                        @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="text-center"><button id="btn-one" class="btn btn-success mx-auto">Download PDF April</button>
         </div>
+        {{-- april div end --}}
 
+
+
+        {{-- may div start --}}
 
         <div id="calendarDiv_may"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
-                    </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->may_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
-
-
-                    </div>
-                    <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 05)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
-                        @endif
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 05)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
-                        @endif
-                    </div>
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->may_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
                 </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
+                    </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
+                    <main style="margin-top: 0px;">
                         <div id="calendar-container">
                             {!! $calendarDataMay !!}
                         </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
                     </main>
+
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
+                    </div>
+
+                    <div class="text-center">
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 05)
+                        <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
+                        @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 05)
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
+                        @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="text-center"><button id="btn-one-may" class="btn btn-success mx-auto">Download PDF May</button>
         </div>
+        {{-- may div end  --}}
+
+
+
+        {{-- june div start  --}}
         <div id="calendarDiv_june"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->june_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->june_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDatajune !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 06)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 06)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDatajune !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
         <div class="text-center"><button id="btn-one-june" class="btn btn-success mx-auto">Download PDF June</button>
         </div>
+        {{-- june div end  --}}
+
+
+
+
+        {{-- div july start  --}}
+
         <div id="calendarDiv_july"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->july_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->july_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDatajuly !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 07)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 07)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDatajuly !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
         <div class="text-center"><button id="btn-one-july" class="btn btn-success mx-auto">Download PDF July</button>
         </div>
+
+        {{-- div july End --}}
+
+
+
+        {{-- aug div start  --}}
 
 
         <div id="calendarDiv_august"
@@ -279,500 +260,430 @@
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
-                    </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->august_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
-
-
-                    </div>
-
-                    <div class="text-center">
-
-                        @if (Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === '08')
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
-                        @endif
-
-
-                        @if (Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === '08')
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
-                        @endif
-                    </div>
-
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->august_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
                 </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
+                    </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
+                    <main style="margin-top: 0px;">
                         <div id="calendar-container">
                             {!! $calendarDataMayaugust !!}
                         </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
                     </main>
+
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
+                    </div>
+
+                    <div class="text-center">
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === '08')
+                        <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
+                        @endif
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === '08')
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
+                        @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="text-center"><button id="btn-one-august" class="btn btn-success mx-auto">Download PDF
                 August</button></div>
+        {{-- aug div end  --}}
 
+
+
+
+
+
+        {{-- september div start  --}}
 
         <div id="calendarDiv_september"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->september_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->september_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDataMayseptember !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 9)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 9)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDataMayseptember !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
         <div class="text-center"><button id="btn-one-september" class="btn btn-success mx-auto">Download PDF
                 September</button></div>
+        {{-- september div end  --}}
+
+
+
+
+        {{-- october div start  --}}
         <div id="calendarDiv_october"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->october_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->october_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDataMayoctober !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 10)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 10)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDataMayoctober !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
         <div class="text-center"><button id="btn-one-october" class="btn btn-success mx-auto">Download PDF
                 October</button></div>
+        {{-- october div end --}}
+
+
+        {{-- november div start  --}}
+
         <div id="calendarDiv_november"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->november_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->october_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDataMaynovember !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 11)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 11)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDataMaynovember !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
         <div class="text-center"><button id="btn-one-november" class="btn btn-success mx-auto">Download PDF
                 November</button></div>
+        {{-- november div end  --}}
+
+
+
+        {{-- december div start  --}}
+
         <div id="calendarDiv_december"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->december_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->december_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDataMaydecember !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 12)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 12)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDataMaydecember !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
         <div class="text-center"><button id="btn-one-december" class="btn btn-success mx-auto">Download PDF
                 December</button></div>
+        {{-- december div end  --}}
 
 
 
 
+        {{-- january div start  --}}
         <div id="calendarDiv_january"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->january_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->january_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDatajanuary !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 01)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
+                            <p style="color:#000080;"><b><i>Happy Birthday
+                                      </i></b>
                             </p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 01)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
+                        <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDatajanuary !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
-
         <div class="text-center"><button id="btn-one-january" class="btn btn-success mx-auto">Download PDF
                 January</button></div>
+        {{-- january div end  --}}
 
+
+        {{-- february div start  --}}
 
         <div id="calendarDiv_february"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->february_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->march_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDatafebruary !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 02)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
+                            <p style="color:#000080;"><b><i>Happy Birthday</i></b>
                             </p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 02)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
-                            </p>
+                            <p style="color:#000080;"><b><i>Marriage Anniversary </i></b></p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDatafebruary !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
-
-
-
         <div class="text-center"><button id="btn-one-february" class="btn btn-success mx-auto">Download PDF
                 February</button></div>
+        {{-- february div end  --}}
 
+
+        {{-- march div start  --}}
 
         <div id="calendarDiv_march"
             style="width: 210mm; height: 148mm; margin: 0 auto; page-break-after: always; background-image: url('{{ asset('assets/images/calendar-background.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
             <div style="width: 100%; height: 100%; display: flex;">
 
-                <div style="width: 50%; height: 100%; float: left; padding: 10mm;">
-                    <div>
-                        <img src="{{ asset('assets/images/Mankind_Serving_Life.png') }}" alt=""
-                            class="img-fluid" width="100px" />
-
-
+                <div class="doctorphoto" style="width: 50%; height: 100%; float: left; padding: 0mm;">
+                    <img id="photo" src="{{ asset($doctordetails->march_photo) }}" alt="Passport Photo"
+                        style="width: 3.85in; height: 100%;">
+                </div>
+                <div style="width: 50%; height: 100%; padding: 0mm; position: relative;">
+                    <div style="text-align: right; margin-right: 22px;">
+                        <img src="{{ asset('assets/images/top_calendar.png') }}" alt="" class="img-fluid"
+                            width="70px" height="100px" />
                     </div>
-                    <div class="doctorphoto" style="padding: 0; display: flex; margin: 40px; margin-left: 80px;">
-                        <img id="photo" src="{{ asset($doctordetails->march_photo) }}" alt="Passport Photo"
-                            style="border: 5px solid blue; border-radius: 30px; width: 2.5in; height: 2in;">
 
+                    <main style="margin-top: 0px;">
+                        <div id="calendar-container">
+                            {!! $calendarDatamarch !!}
+                        </div>
+                    </main>
 
+                    <div style="text-align: center; margin-right: 22px;" class="mt-2">
+                        <img src="{{ asset('assets/images/bottom_calendar.png') }}" alt="" class="img-fluid"
+                            width="350px" />
                     </div>
 
                     <div class="text-center">
                         @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 03)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Date Of Birth:
-                                        {{ \Carbon\Carbon::parse($doctordetails->date_of_birth)->format('jS M') }}</i></b>
+                            <p style="color:#000080;"><b><i>Happy Birthday
+                                       </i></b>
                             </p>
                         @endif
                         @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 03)
-                            {{-- Debugging Output --}}
-
-                            <p><b><i>Marriage Anniversary:
-                                        {{ \Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('jS M') }}</i></b>
+                            <p style="color:#000080;"><b><i>Marriage Anniversary
+                                        </i></b>
                             </p>
                         @endif
+                        <!-- Rotated Text -->
+                        <div style="position: absolute; bottom: 0; right: 0;">
+                            <span
+                                style="display: inline-block;transform: rotate(270deg);text-align: right;margin-right: -9px;margin-bottom: 31px;font-size: 10px;">{{ $doctordetails->calendar_id }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div style="width: 50%; height: 100%; padding: 10mm;">
-                    <main style="margin-top: 0;">
-                        {{-- <h4 id="Year" class="text-right mb-4"></h4>   --}}
-                        <h4 id="monthAndYear" class="text-right mb-4"></h4>
-                        {{-- <div id="calendar-container"></div> --}}
-                        <div id="calendar-container">
-                            {!! $calendarDatamarch !!}
-                        </div>
-                        <div>
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                            <hr style="border: 1px solid black;  margin: 40px 0;">
-                        </div>
-                    </main>
-                </div>
             </div>
         </div>
-
         <div class="text-center"><button id="btn-one-march" class="btn btn-success mx-auto">Download PDF
                 March</button>
         </div>
+        {{-- march div end  --}}
 
+        <div class="col-12 text-center">
+            @if (Auth::guard('admin')->user()->role === 'admin')
+            
+            <div class="mt-2 mb-2 text-center">
+                <a href="{{ route('dashboard.index')}}" class="btn btn-success mx-auto">Back</a>
+            </div>
+        @else
+        <div class="mt-2 mb-2 text-center">
+            <a href="{{ route('mr-dashboard.index')}}" class="btn btn-success mx-auto">Back</a>
+        </div>
+        @endif
+            
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </div>
+        
+       
+        
     </div>
 
 
@@ -1143,6 +1054,7 @@
                 pdf.save(filenamePrefix + '_' + doctorName.replace(/\s/g, '') + '_' + currentDate + '.pdf');
             });
         });
+ 
     </script>
 
 

@@ -6,9 +6,7 @@
         <div class="container-fluid">
             <div class="page-title-box">
                 <div class="row align-items-center">
-                    <div class="col-sm-6">
-                        <h4 class="page-title"><a href="javascript:history.go(-1);">Back</a></h4>
-                    </div>
+
                 </div>
                 <!-- end row -->
             </div>
@@ -101,8 +99,8 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <label for="january_photo" class="col-form-label">January Photo</label>
-                                        <input type="file" class="form-control" name="january_photo"
-                                            id="january_photo" accept="image/*">
+                                        <input type="file" class="form-control" name="january_photo" id="january_photo"
+                                            accept="image/*">
                                     </div>
                                 </div>
 
@@ -149,7 +147,7 @@
 
                                 <div class="row" id="normalCalendar" style="display: none;">
                                     <div class="col-sm-12">
-                                        <label for="example-date-input" class="col-form-label">Date of Birth</label>
+                                        <label for="example-date-input" class="col-form-label">Happy Birth Day</label>
                                         <input class="form-control" type="date" name="date_of_birth"
                                             id="date_of_birth">
                                     </div>
@@ -169,6 +167,7 @@
                                     <div class="col-sm-12 text-center">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                         <button type="reset" class="btn btn-secondary">Reset</button>
+                                        <a href="javascript:history.go(-1);" class="btn btn-info">Back</a>
                                     </div>
                                 </div>
                             </form>
@@ -272,19 +271,22 @@
                     type: 'POST',
                     url: '{{ route('doctors.store') }}',
                     data: formData,
-                    contentType: false, // Important: prevent jQuery from automatically setting the content type
-                    processData: false, // Important: prevent jQuery from processing the data
+                    contentType: false,
+                    processData: false,
                     success: function(data) {
                         // Assume data.success is a flag indicating success
                         if (data.success) {
                             // Show Toastr success notification
                             toastr.success('Form submitted successfully!', 'Success');
 
-                            // Redirect after 3 seconds
+                            // Redirect to calendar.preview route after 3 seconds
                             setTimeout(function() {
+                                var imageId = data.doctor_id;
                                 window.location.href =
-                                    '{{ route('mr-dashboard.index') }}';
+                                    '/doctor-calendar-preview?imageId=' + imageId;
                             }, 3000);
+
+
                         } else {
                             // Show Toastr error notification
                             toastr.error('Form submission failed. Please check your input.',
@@ -300,6 +302,7 @@
                         $('button[type="submit"]').prop('disabled', false);
                     }
                 });
+
             });
         });
     </script>
