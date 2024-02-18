@@ -64,7 +64,10 @@
                                                     <a href="{{ route('admin.calendar.preview', ['imageId' => $dr->id]) }}" class="btn btn-sm btn-info" title="View">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                  
+                                                    <a href="{{ route('admin.calendar.download', ['imageId' => $dr->id]) }}" class="btn btn-sm btn-info" title="Download All Doctor Photos">
+                                                        <i class="fa fa-download"></i>
+
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -6,8 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Doctor;
 use App\Models\doctorImages;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\User;
 use Carbon\Carbon;
+use Dompdf\Options;
+use Barryvdh\DomPDF\Facade;
+use Nette\Utils\Random;
+use PDF;
+use Illuminate\Support\Facades\File;
+use ZipArchive;
+use Illuminate\Support\Facades\Response;
 
 class DoctorController extends Controller
 {
@@ -357,88 +364,20 @@ class DoctorController extends Controller
         return view('backend.doctor.print-calendar', compact('doctordetails', 'calendarData', 'year', 'month', 'formattedMonth', 'formattedMonthNumber', 'calendarDataMay', 'calendarDatajune', 'calendarDatajuly', 'calendarDataMayaugust', 'calendarDataMayseptember', 'calendarDataMayoctober', 'calendarDataMaynovember', 'calendarDataMaydecember', 'calendarDatajanuary', 'calendarDatafebruary', 'calendarDatamarch'));
     }
 
-    // private function generateCalendar($year, $month, $doctordetails)
-    // {
-    //     $cal = new \DateTime("$year-$month-01");
-
-    //     $lastDay = (int)$cal->format('t');
-
-    //     $dateOfBirth = new \DateTime($doctordetails->date_of_birth);
-    //     $marriageAnniversary = new \DateTime($doctordetails->marriage_anniversary);
-
-    //     $calendarHTML = "<style>
-    //     .custom-font-table {
-    //         width: 100%;
-    //         border-collapse: collapse;
-    //         height: 200px;
-    //         font-family: 'DinMedium', sans-serif; /* Replace 'DinMedium' with the correct font-family name */
-    //     }
-    // </style>
-    // <h4 id='monthAndYear' class='text-center mb-4'>{$cal->format('F')} | {$cal->format('m')} | $year</h4>
-    // <table style='width:100%; border-collapse: collapse; height:200px;'>
-    //     <tr>
-    //         <th style='width: 14.2857%;'>Sun</th>
-    //         <th style='width: 14.2857%;'>Mon</th>
-    //         <th style='width: 14.2857%;'>Tue</th>
-    //         <th style='width: 14.2857%;'>Wed</th>
-    //         <th style='width: 14.2857%;'>Thu</th>
-    //         <th style='width: 14.2857%;'>Fri</th>
-    //         <th style='width: 14.2857%;'>Sat</th>
-    //     </tr>";
-
-
-    //     $day = 1;
-    //     for ($i = 0; $i < 6; $i++) {
-    //         $calendarHTML .= '<tr>';
-    //         for ($j = 0; $j < 7; $j++) {
-    //             if ($i === 0 && $j < $cal->format('w')) {
-    //                 $calendarHTML .= '<td></td>';
-    //             } elseif ($day > $lastDay) {
-    //                 break;
-    //             } else {
-    //                 $currentDate = new \DateTime("$year-$month-" . sprintf("%02d", $day));
-    //                 $currentDateFormatted = $currentDate->format('m-d');
-    //                 $dateOfBirthFormatted = $dateOfBirth->format('m-d');
-    //                 $marriageAnniversaryFormatted = $marriageAnniversary->format('m-d');
-
-    //                 $highlightClass = '';
-
-    //                 if ($currentDateFormatted == $dateOfBirthFormatted) {
-
-    //                     $highlightClass .= ' highlight-date-birth';
-    //                 }
-
-    //                 if ($currentDateFormatted == $marriageAnniversaryFormatted) {
-
-    //                     $highlightClass .= ' highlight-date-anniversary';
-    //                 }
-
-    //                 $calendarHTML .= "<td class='$highlightClass'>$day</td>";
-    //                 $day++;
-    //             }
-    //         }
-    //         $calendarHTML .= '</tr>';
-    //     }
-
-    //     $calendarHTML .= '</table>';
-
-    //     return $calendarHTML;
-    // }
-
     private function generateCalendar($year, $month, $doctordetails)
     {
         $cal = new \DateTime("$year-$month-01");
-    
+
         $lastDay = (int)$cal->format('t');
-    
+
         $dateOfBirth = new \DateTime($doctordetails->date_of_birth);
         $marriageAnniversary = new \DateTime($doctordetails->marriage_anniversary);
-    
+
         $calendarHTML = "<style>
             .custom-font-table {
-                width: 100%;
+                width:90%;
                 border-collapse: collapse;
-                height: 200px;
+                height: 180px;
                 font-family: 'DinMedium', sans-serif; /* Replace 'DinMedium' with the correct font-family name */
             }
             th, td {
@@ -455,6 +394,7 @@ class DoctorController extends Controller
                 font-weight: bold;
             }
         </style>
+        <div style='margin-left: 30px;'>
         <h4 id='monthAndYear' class='text-center mb-4' style='color:#000080;'>{$cal->format('F')} | {$cal->format('m')} | $year</h4>
         <table class='custom-font-table'>
             <tr>
@@ -466,7 +406,7 @@ class DoctorController extends Controller
                 <th style='width: 14.2857%;'>Fri</th>
                 <th style='width: 14.2857%;'>Sat</th>
             </tr>";
-    
+
         $day = 1;
         for ($i = 0; $i < 6; $i++) {
             $calendarHTML .= '<tr>';
@@ -480,31 +420,79 @@ class DoctorController extends Controller
                     $currentDateFormatted = $currentDate->format('m-d');
                     $dateOfBirthFormatted = $dateOfBirth->format('m-d');
                     $marriageAnniversaryFormatted = $marriageAnniversary->format('m-d');
-    
+
                     $highlightClass = '';
-    
+
                     if ($currentDateFormatted == $dateOfBirthFormatted) {
                         $highlightClass .= ' highlight-date-birth';
                     }
-    
+
                     if ($currentDateFormatted == $marriageAnniversaryFormatted) {
                         $highlightClass .= ' highlight-date-anniversary';
                     }
-    
+
                     if ($j == 0) {
                         $highlightClass .= ' highlight-sunday';
                     }
-    
+
                     $calendarHTML .= "<td class='$highlightClass'>$day</td>";
                     $day++;
                 }
             }
             $calendarHTML .= '</tr>';
         }
-    
-        $calendarHTML .= '</table>';
-    
+
+        $calendarHTML .= '</table></div>';
+
         return $calendarHTML;
     }
-    
+
+
+
+    public function calendarDownload(Request $request)
+    {
+        $imageId = $request->input('imageId');
+
+        $doctordetails = Doctor::findOrFail($imageId);
+        $mr_id = User::find($doctordetails->created_by);
+
+        $mrid = $mr_id->employee_id;
+        $drName = $doctordetails->name;
+
+        // Create an array of image paths based on the doctor's details
+        $imagePaths = [
+            public_path($doctordetails->april_photo),
+            public_path($doctordetails->may_photo),
+            public_path($doctordetails->june_photo),
+            public_path($doctordetails->july_photo),
+            public_path($doctordetails->august_photo),
+            public_path($doctordetails->september_photo),
+            public_path($doctordetails->october_photo),
+            public_path($doctordetails->november_photo),
+            public_path($doctordetails->december_photo),
+            public_path($doctordetails->january_photo),
+            public_path($doctordetails->february_photo),
+            public_path($doctordetails->march_photo),
+        ];
+
+        // Create a temporary zip file
+        $zipFilePath = tempnam(sys_get_temp_dir(), 'photos');
+        $zip = new ZipArchive();
+        $zip->open($zipFilePath, ZipArchive::CREATE);
+
+        // Add each image file to the zip
+        foreach ($imagePaths as $path) {
+            $fileName = pathinfo($path, PATHINFO_BASENAME);
+            $zip->addFile($path, $fileName);
+        }
+
+        // Close the zip file
+        $zip->close();
+
+        // Construct the desired file name
+        $fileName = $mrid . '_' . str_replace(' ', '_', $drName) . '.zip';
+
+        // Set headers to force download
+        return Response::download($zipFilePath, $fileName)->deleteFileAfterSend(true);
+    }
 }
