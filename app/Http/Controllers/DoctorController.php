@@ -11,10 +11,11 @@ use Carbon\Carbon;
 use Dompdf\Options;
 use Barryvdh\DomPDF\Facade;
 use Nette\Utils\Random;
-use PDF;
 use Illuminate\Support\Facades\File;
 use ZipArchive;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class DoctorController extends Controller
 {
@@ -35,136 +36,308 @@ class DoctorController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'date_of_birth' => 'nullable|date',
 
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string',
+                'april_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'may_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'june_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'july_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'august_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'september_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'october_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'november_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'december_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'january_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'february_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+                'march_photo' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+            ]);
+            $doctor_count = Doctor::where('created_by', Auth::guard('admin')->user()->id)->count();
+            if ($doctor_count >= 10) {
+                return response()->json(['error' => false]);
+                exit;
+            }
 
-        $doctor_count = Doctor::where('created_by', Auth::guard('admin')->user()->id)->count();
-        if ($doctor_count >= 10) {
-            return response()->json(['error' => false]);
-            exit;
+            $employee_id = Auth::guard('admin')->user()->employee_id;
+
+            // Increment the doctor_count by 1
+            $doctor_count += 1;
+
+            // Format $index with leading zeros
+            $index = sprintf('%02d', $doctor_count);
+
+            $employeeid = $employee_id . '_' . $index;
+
+            $dateOfBirth = $request->input('date_of_birth');
+            $marriageAnniversaryDate = $request->input('marriage_anniversary');
+
+
+            $doctor = new Doctor();
+            $doctor->name = 'Dr.' . $request->input('name');
+            // Example for date_of_birth
+            // Check if the date_of_birth is not empty before creating a Carbon instance
+            if (!empty($dateOfBirth)) {
+                $doctor->date_of_birth = $dateOfBirth;
+            }
+
+            if (!empty($marriageAnniversaryDate)) {
+                $doctor->marriage_anniversary = $marriageAnniversaryDate;
+            }
+
+            $doctor->calendar_id = $employeeid;
+
+            if ($request->file('april_photo') && $employee_id) {
+                $april_photo = $request->file('april_photo');
+                $monthName = 'april';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $april_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $april_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->april_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+
+            if ($request->file('may_photo') && $employee_id) {
+                $may_photo = $request->file('may_photo');
+                $monthName = 'may';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $may_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $may_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->may_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For June Photo
+            if ($request->file('june_photo') && $employee_id) {
+                $june_photo = $request->file('june_photo');
+                $monthName = 'june';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $june_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $june_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->june_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For July Photo
+            if ($request->file('july_photo') && $employee_id) {
+                $july_photo = $request->file('july_photo');
+                $monthName = 'july';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $july_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $july_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->july_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For August Photo
+            if ($request->file('august_photo') && $employee_id) {
+                $august_photo = $request->file('august_photo');
+                $monthName = 'august';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $august_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $august_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->august_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For September Photo
+            if ($request->file('september_photo') && $employee_id) {
+                $september_photo = $request->file('september_photo');
+                $monthName = 'september';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $september_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $september_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->september_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For October Photo
+            if ($request->file('october_photo') && $employee_id) {
+                $october_photo = $request->file('october_photo');
+                $monthName = 'october';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $october_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $october_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->october_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For November Photo
+            if ($request->file('november_photo') && $employee_id) {
+                $november_photo = $request->file('november_photo');
+                $monthName = 'november';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $november_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $november_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->november_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For December Photo
+            if ($request->file('december_photo') && $employee_id) {
+                $december_photo = $request->file('december_photo');
+                $monthName = 'december';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $december_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $december_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->december_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For January Photo
+            if ($request->file('january_photo') && $employee_id) {
+                $january_photo = $request->file('january_photo');
+                $monthName = 'january';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $january_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $january_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->january_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For February Photo
+            if ($request->file('february_photo') && $employee_id) {
+                $february_photo = $request->file('february_photo');
+                $monthName = 'february';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $february_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $february_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->february_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            // For March Photo
+            if ($request->file('march_photo') && $employee_id) {
+                $march_photo = $request->file('march_photo');
+                $monthName = 'march';  // Replace this with the actual month name
+                $employeeFolder = 'employee_' . $employee_id;
+
+                // Create the employee folder if it doesn't exist
+                if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                    mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+                }
+
+                $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $march_photo->extension();
+
+                // Move the image to the employee-specific directory
+                $march_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+                // Save the relative image path to the database
+                $doctor->march_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
+            }
+
+            $doctor->created_by  = Auth::guard('admin')->user()->id;
+            $doctor->save();
+            return response()->json(['success' => true, 'doctor_id' => $doctor->id]);
+            // return redirect()->route('doctor.index')->with('success', 'Doctor created successfully!');
+        } catch (\Exception $e) {
+            Log::error('Error during file import: ' . $e->getMessage());
+            Log::error('File: ' . $e->getFile());
+            Log::error('Line: ' . $e->getLine());
+            Log::error('Trace: ' . $e->getTraceAsString());
+            // Handle the case where the doctor with the given ID is not found
+            return redirect()->back()->with('error', 'Doctor not found');
         }
-
-        $employee_id = Auth::guard('admin')->user()->employee_id;
-
-        // Increment the doctor_count by 1
-        $doctor_count += 1;
-
-        // Format $index with leading zeros
-        $index = sprintf('%02d', $doctor_count);
-
-        $employeeid = $employee_id . '_' . $index;
-
-
-        $doctor = new Doctor();
-        $doctor->name = 'Dr.' . $request->input('name');
-        $doctor->date_of_birth = Carbon::createFromFormat('Y-m-d', $request->input('date_of_birth'))->toDateString();
-        $doctor->marriage_anniversary = Carbon::createFromFormat('Y-m-d', $request->input('marriage_anniversary'))->toDateString();
-        $doctor->calendar_id = $employeeid;
-        if ($request->file('april_photo')) {
-            $april_photo = $request->file('april_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $april_photo->extension();
-
-            // Move the image to the public/doctor_images directory
-            $april_photo->move(public_path('doctor_images'), $fileName);
-
-            // Save the relative image path to the database
-            $doctor->april_photo = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('may_photo')) {
-            $may_photo = $request->file('may_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $may_photo->extension();
-            // Upload image to public directory
-            $may_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->may_photo  = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('june_photo')) {
-            $june_photo = $request->file('june_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $june_photo->extension();
-            // Upload image to public directory
-            $june_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->june_photo  = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('july_photo')) {
-            $july_photo = $request->file('july_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $july_photo->extension();
-            // Upload image to public directory
-            $july_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->july_photo = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('august_photo')) {
-            $august_photo = $request->file('august_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $august_photo->extension();
-            // Upload image to public directory
-            $august_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->august_photo = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('september_photo')) {
-            $september_photo = $request->file('september_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $september_photo->extension();
-            // Upload image to public directory
-            $september_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->september_photo = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('october_photo')) {
-            $october_photo = $request->file('october_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $october_photo->extension();
-            // Upload image to public directory
-            $october_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->october_photo  = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('november_photo')) {
-            $november_photo = $request->file('november_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $november_photo->extension();
-            // Upload image to public directory
-            $november_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->november_photo  = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('december_photo')) {
-            $december_photo = $request->file('december_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $december_photo->extension();
-            // Upload image to public directory
-            $december_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->december_photo = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('january_photo')) {
-            $january_photo = $request->file('january_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $january_photo->extension();
-            // Upload image to public directory
-            $january_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->january_photo = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('february_photo')) {
-            $february_photo = $request->file('february_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $february_photo->extension();
-            // Upload image to public directory
-            $february_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->february_photo  = 'doctor_images/' . $fileName;
-        }
-        if ($request->file('march_photo')) {
-            $march_photo = $request->file('march_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $march_photo->extension();
-            // Upload image to public directory
-            $march_photo->move(public_path('doctor_images'), $fileName);
-
-            $doctor->march_photo = 'doctor_images/' . $fileName;
-        }
-        $doctor->created_by  = Auth::guard('admin')->user()->id;
-        $doctor->save();
-        return response()->json(['success' => true, 'doctor_id' => $doctor->id]);
-        // return redirect()->route('doctor.index')->with('success', 'Doctor created successfully!');
     }
 
 
@@ -205,110 +378,250 @@ class DoctorController extends Controller
             'date_of_birth' => 'nullable|date',
         ]);
 
-
+        $employee_id = Auth::guard('admin')->user()->employee_id;
 
         $doctor = Doctor::findOrFail($request->id);
         $doctor->name = $request->input('name');
         $doctor->date_of_birth = $request->input('date_of_birth');
         $doctor->marriage_anniversary = $request->input('marriage_anniversary');
 
-        if ($request->file('april_photo')) {
+        if ($request->file('april_photo') && $employee_id) {
             $april_photo = $request->file('april_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $april_photo->extension();
+            $monthName = 'april';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            // Move the image to the public/doctor_images directory
-            $april_photo->move(public_path('doctor_images'), $fileName);
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $april_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $april_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
 
             // Save the relative image path to the database
-            $doctor->april_photo = 'doctor_images/' . $fileName;
+            $doctor->april_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('may_photo')) {
+
+
+        if ($request->file('may_photo') && $employee_id) {
             $may_photo = $request->file('may_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $may_photo->extension();
-            // Upload image to public directory
-            $may_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'may';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->may_photo  = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $may_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $may_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->may_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('june_photo')) {
+
+        // For June Photo
+        if ($request->file('june_photo') && $employee_id) {
             $june_photo = $request->file('june_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $june_photo->extension();
-            // Upload image to public directory
-            $june_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'june';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->june_photo  = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $june_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $june_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->june_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('july_photo')) {
+
+        // For July Photo
+        if ($request->file('july_photo') && $employee_id) {
             $july_photo = $request->file('july_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $july_photo->extension();
-            // Upload image to public directory
-            $july_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'july';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->july_photo = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $july_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $july_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->july_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('august_photo')) {
+
+        // For August Photo
+        if ($request->file('august_photo') && $employee_id) {
             $august_photo = $request->file('august_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $august_photo->extension();
-            // Upload image to public directory
-            $august_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'august';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->august_photo = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $august_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $august_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->august_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('september_photo')) {
+
+        // For September Photo
+        if ($request->file('september_photo') && $employee_id) {
             $september_photo = $request->file('september_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $september_photo->extension();
-            // Upload image to public directory
-            $september_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'september';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->september_photo = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $september_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $september_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->september_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('october_photo')) {
+
+        // For October Photo
+        if ($request->file('october_photo') && $employee_id) {
             $october_photo = $request->file('october_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $october_photo->extension();
-            // Upload image to public directory
-            $october_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'october';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->october_photo  = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $october_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $october_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->october_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('november_photo')) {
+
+        // For November Photo
+        if ($request->file('november_photo') && $employee_id) {
             $november_photo = $request->file('november_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $november_photo->extension();
-            // Upload image to public directory
-            $november_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'november';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->november_photo  = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $november_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $november_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->november_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('december_photo')) {
+
+        // For December Photo
+        if ($request->file('december_photo') && $employee_id) {
             $december_photo = $request->file('december_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $december_photo->extension();
-            // Upload image to public directory
-            $december_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'december';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->december_photo = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $december_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $december_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->december_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('january_photo')) {
+
+        // For January Photo
+        if ($request->file('january_photo') && $employee_id) {
             $january_photo = $request->file('january_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $january_photo->extension();
-            // Upload image to public directory
-            $january_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'january';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->january_photo = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $january_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $january_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->january_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('february_photo')) {
+
+        // For February Photo
+        if ($request->file('february_photo') && $employee_id) {
             $february_photo = $request->file('february_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $february_photo->extension();
-            // Upload image to public directory
-            $february_photo->move(public_path('doctor_images'), $fileName);
+            $monthName = 'february';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
 
-            $doctor->february_photo  = 'doctor_images/' . $fileName;
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $february_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $february_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->february_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
-        if ($request->file('march_photo')) {
-            $march_photo = $request->file('march_photo');
-            $fileName = time() . '_' . mt_rand(1000, 9999) . '.' . $march_photo->extension();
-            // Upload image to public directory
-            $march_photo->move(public_path('doctor_images'), $fileName);
 
-            $doctor->march_photo = 'doctor_images/' . $fileName;
+        // For March Photo
+        if ($request->file('march_photo') && $employee_id) {
+            $march_photo = $request->file('march_photo');
+            $monthName = 'march';  // Replace this with the actual month name
+            $employeeFolder = 'employee_' . $employee_id;
+
+            // Create the employee folder if it doesn't exist
+            if (!file_exists(public_path('doctor_images/' . $employeeFolder))) {
+                mkdir(public_path('doctor_images/' . $employeeFolder), 0777, true);
+            }
+
+            $fileName = $monthName . '_' . time() . '_' . mt_rand(1000, 9999) . '.' . $march_photo->extension();
+
+            // Move the image to the employee-specific directory
+            $march_photo->move(public_path('doctor_images/' . $employeeFolder), $fileName);
+
+            // Save the relative image path to the database
+            $doctor->march_photo = 'doctor_images/' . $employeeFolder . '/' . $fileName;
         }
         $doctor->created_by  = Auth::guard('admin')->user()->id;
         $doctor->save();
@@ -495,4 +808,218 @@ class DoctorController extends Controller
         // Set headers to force download
         return Response::download($zipFilePath, $fileName)->deleteFileAfterSend(true);
     }
+
+    public function generatePdf()
+    {
+
+        // Your HTML content
+        $htmlContent = '<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Calendar</title>
+        </head>
+        <body style="background: #ededed;">
+        
+        <div id="calendarDiv" style="width: 8.5in; height: 5.5in; margin: 0 auto; page-break-after: always;display: flex;flex-wrap: wrap;background: url("assets/images/background.png");background-size :cover;">
+        
+            <div style="width: 50%;">
+                <img src="left.png" alt="image" style="width: 100%;height: 100%">
+            </div>
+        
+            <div style="width: 50%;">
+                <div style="text-align: right;">
+                    <img src="top_calendar.png" alt="image" style=" width: 70px; margin-right: 40px">
+                </div>
+                
+                <div>
+                    <div style="color: #000080; font-weight: 900;font-size: 25px;text-align:center;">
+                        May &#124; 05 &#124; 2024
+                    </div>
+                </div>
+        
+                <div style="width: 80%;margin: auto">
+                    <table style="font-weight: 900;width: 100%;margin-top: 20px;margin-bottom: 20px;text-align: center;border-spacing: 10px;font-size: 20px;">
+                        <thead>
+                            <tr>
+                              <th style="color: red">Sun</th>
+                              <th>Mon</th>
+                              <th>Tue</th>
+                              <th>Wed</th>
+                              <th>Thu</th>
+                              <th>Fri</th>
+                              <th>Sat</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                              <td style="color: red">1</td>
+                              <td>2</td>
+                              <td>3</td>
+                              <td>4</td>
+                              <td>5</td>
+                              <td>6</td>
+                              <td>7</td>
+                            </tr>
+                            <tr>
+                              <td style="color: red">8</td>
+                              <td>9</td>
+                              <td>10</td>
+                              <td>11</td>
+                              <td>12</td>
+                              <td>13</td>
+                              <td>14</td>
+                            </tr>
+                            <tr>
+                              <td style="color: red">15</td>
+                              <td>16</td>
+                              <td>17</td>
+                              <td>18</td>
+                              <td>19</td>
+                              <td>20</td>
+                              <td>21</td>
+                            </tr>
+                            <tr>
+                              <td style="color: red">22</td>
+                              <td>23</td>
+                              <td>24</td>
+                              <td>25</td>
+                              <td>26</td>
+                              <td>27</td>
+                              <td>28</td>
+                            </tr>
+                            <tr>
+                              <td style="color: red">29</td>
+                              <td>30</td>
+                              <td>31</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <div style="text-align: center">
+                    <img src="bottom_calendar.png" alt="image" style="width: 65%">
+                </div>      
+            </div>  
+        </div>
+            
+        </body>
+        </html>
+        
+        ';
+
+        // Load HTML content
+        $pdf = PDF::loadHTML($htmlContent);
+
+        // Download the PDF with a specific file name
+        return $pdf->download('filename.pdf');
+    }
+
+
+    public function ZipDownload(Request $request)
+    {
+        $mrid = $request->input('imageId');
+    
+        // Fetch all doctors for the given $mrid
+        $doctordetails = Doctor::where('created_by', $mrid)->get();
+    
+        // Retrieve the MR's information
+        $mr = User::find($mrid);
+        $mr_employee_id = $mr->employee_id;
+    
+        // Create a temporary directory to store all doctor folders
+        $tempMainDirectory = sys_get_temp_dir() . '/' . uniqid('doctors_');
+        mkdir($tempMainDirectory);
+    
+        foreach ($doctordetails as $doctor) {
+            // Create a folder for each doctor
+            $foldername = $doctor->calendar_id;
+            $tempDirectory = $tempMainDirectory . '/' . $foldername;
+            mkdir($tempDirectory);
+    
+            // Create an array of image paths based on the doctor's details
+            $imagePaths = [
+                'april_photo' => $doctor->april_photo,
+                'may_photo' => $doctor->may_photo,
+                'june_photo' => $doctor->june_photo,
+                'july_photo' => $doctor->july_photo,
+                'august_photo' => $doctor->august_photo,
+                'september_photo' => $doctor->september_photo,
+                'october_photo' => $doctor->october_photo,
+                'november_photo' => $doctor->november_photo,
+                'december_photo' => $doctor->december_photo,
+                'january_photo' => $doctor->january_photo,
+                'february_photo' => $doctor->february_photo,
+                'march_photo' => $doctor->march_photo,
+            ];
+    
+            // Move each image file to the temporary doctor folder
+            foreach ($imagePaths as $imageName => $imagePath) {
+                $sourcePath = public_path($imagePath);
+                $destinationPath = $tempDirectory . '/' . $imageName . '.jpg'; // Adjust the extension as needed
+                copy($sourcePath, $destinationPath);
+            }
+        }
+    
+        // Create a temporary zip file
+        $zipFilePath = tempnam(sys_get_temp_dir(), 'doctors');
+        $zip = new ZipArchive();
+        $zip->open($zipFilePath, ZipArchive::CREATE);
+    
+        // Add each doctor folder to the zip
+        $doctorFolders = glob($tempMainDirectory . '/*', GLOB_ONLYDIR);
+        foreach ($doctorFolders as $doctorFolder) {
+            $folderName = basename($doctorFolder);
+            $zip->addEmptyDir($folderName);
+            $this->addFolderToZip($doctorFolder, $zip, $folderName);
+        }
+    
+        // Close the zip file
+        $zip->close();
+    
+        // Remove the temporary doctor folders
+        $this->deleteDirectory($tempMainDirectory);
+    
+        // Construct the desired file name
+        $fileName = $mr_employee_id . '_' . str_replace(' ', '_', $mr->name) . '.zip';
+    
+        // Set headers to force download
+        return response()->download($zipFilePath, $fileName)->deleteFileAfterSend(true);
+    }
+    
+    // Helper function to add a folder and its contents to a zip file
+    protected function addFolderToZip($folder, $zip, $parentFolder = '')
+    {
+        $files = glob($folder . '/*');
+    
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                $this->addFolderToZip($file, $zip, $parentFolder . '/' . basename($file));
+            } else {
+                $zip->addFile($file, $parentFolder . '/' . basename($file));
+            }
+        }
+    }
+    
+    
+    // Helper function to recursively delete a directory and its contents
+    protected function deleteDirectory($dir)
+    {
+        if (is_dir($dir)) {
+            $objects = scandir($dir);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($dir . "/" . $object) == "dir") {
+                        $this->deleteDirectory($dir . "/" . $object);
+                    } else {
+                        unlink($dir . "/" . $object);
+                    }
+                }
+            }
+            reset($objects);
+            rmdir($dir);
+        }
+    }
+    
 }

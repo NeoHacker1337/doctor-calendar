@@ -1,8 +1,5 @@
 @extends('layouts.master')
 @section('content')
-
-
-
 <!-- Begin page -->
 <div id="wrapper">
 
@@ -77,7 +74,6 @@
     <!-- ============================================================== -->
     <!-- End Right content here -->
     <!-- ============================================================== -->
-
 </div>
 <!-- END wrapper -->
 @endsection

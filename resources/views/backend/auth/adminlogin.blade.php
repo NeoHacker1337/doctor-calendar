@@ -1,5 +1,39 @@
 @extends('layouts.master')
 @section('content')
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    .content {
+        min-height: 100vh;
+        padding-bottom: 60px;
+    }
+
+    .footer1 {
+        background-color: #f8f9fa;
+        color: #343a40;
+        padding: 10px;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    /* Media Query for smaller screens */
+    @media (max-width: 600px) {
+        .footer {
+            position: relative;
+        }
+
+        .content {
+            padding-bottom: 10px;
+        }
+    }
+</style>
     <!-- Begin page -->
     <div class="accountbg"></div>
     <div class="home-btn d-none d-sm-block">
@@ -68,6 +102,9 @@
         </div>
     </div>
     <!-- END wrapper -->
+    <footer class="footer1">
+        © 2024 - Crafted with ❤️ by <a href="https://anshwartech.com/" target="_blank" rel="noopener noreferrer">AnshwarTech</a>.
+    </footer>
 @endsection
 
 @section('extra_js')

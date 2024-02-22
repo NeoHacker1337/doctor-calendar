@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\MarketingRepresentativeController;
+use App\Models\Doctor;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +35,7 @@ Route::prefix('admin')->group(function () {
     Route::middleware('admin')->group(function () {
         // Admin-only routes go here
         Route::resource('dashboard', DashboardController::class);
+        Route::POST('import-excel',[DashboardController::class,'import'])->name('admin.excelimport');
         Route::get('admin-logout', [AuthController::class, 'logout'])->name('admin.logout');
         Route::resource('doctor-list', DoctorController::class);
         Route::get('doctor-list-calendar-preview', [DoctorController::class, 'calendarpreview'])->name('doctor.list.calendar.preview');
@@ -40,6 +43,11 @@ Route::prefix('admin')->group(function () {
         Route::get('get-marketing-representative-list', [MarketingRepresentativeController::class, 'mrListtable'])->name('get-marketing-representative-list');
         Route::get('doctor-calendar', [DoctorController::class, 'calendarpreview'])->name('admin.calendar.preview');
         Route::get('doctor-calendar-download', [DoctorController::class, 'calendarDownload'])->name('admin.calendar.download');
+
+        Route::get('mr-doctor-photos-download',[DoctorController::class,'ZipDownload'])->name('admin.zipdownload');
+
+        Route::get('/export-mr-list', [MarketingRepresentativeController::class, 'exportMRList'])->name('exportMRList');
+
     });
 });
 
@@ -54,8 +62,8 @@ Route::group(['middleware' => ['mr']], function () {
     Route::get('mr-logout', [AuthController::class, 'mrlogout'])->name('mrlogout');
 
    
-    // Route::get('download-pdf', [DoctorController::class, 'generatePdf'])->name('download.calendar.pdf');
-    // Route::get('view-download-pdf', [DoctorController::class, 'generatePdf'])->name('download.calendar.pdf');
+    
+    Route::get('view-download-pdf', [DoctorController::class, 'generatePdf'])->name('download.calendar.pdf');
  
 
 });

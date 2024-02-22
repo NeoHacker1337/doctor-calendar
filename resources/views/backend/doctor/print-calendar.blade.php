@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <title>Doctor Dashboard</title>
     <meta content="Responsive admin theme build on top of Bootstrap 4" name="description" />
     <style>
@@ -34,7 +34,19 @@
                 transform: rotate(360deg);
             }
         }
+        #wrapperDiv {
+    /* Your existing desktop styles go here */
+
+    /* Mobile-specific styles */
+    @media only screen and (max-width: 767px) {
+        /* Adjust the styles for mobile view */
+        width: 100%; /* Set width to 100% to take the full width on mobile */
+        margin: 0;   /* Remove any margins on mobile */
+    }
+}
+
     </style>
+    
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <style>
         .highlight-date {
@@ -69,7 +81,7 @@
         }
 
         .marriage_wish {
-            margin-top: -25px;
+            margin-top: -5px;
             margin-bottom: 1rem;
         }
     </style>
@@ -312,10 +324,10 @@
                     </div>
 
                     <div class="text-center">
-                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === '08')
+                        @if ((int) Carbon\Carbon::parse($doctordetails->date_of_birth)->format('m') === 8)
                             <p style="color:#000080;"><b><i>Happy Birthday </i></b></p>
                         @endif
-                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === '08')
+                        @if ((int) Carbon\Carbon::parse($doctordetails->marriage_anniversary)->format('m') === 8)
                             <p style="color:#000080;" class="marriage_wish"><b><i>Marriage Anniversary </i></b></p>
                         @endif
                         <!-- Rotated Text -->
@@ -708,7 +720,8 @@
                 </div>
             @endif
 
-
+           {{-- <a href="{{ Route('download.calendar.pdf')}}">Download All</a> --}}
+       
         </div>
 
         <!-- Loader element -->
@@ -728,11 +741,11 @@
 
     <script>
         // Pass the registration number and employee ID to the JavaScript variables
-        var employeeId = "{{ Auth::guard('admin')->user()->employee_id }}";
+        var employeeId = "{{ $doctordetails->calendar_id }}";
         var employeeName = "{{ Auth::guard('admin')->user()->name }}";
         var doctorName = "{{ $doctordetails->name }}";
         // If employee ID is null, use the employee name
-        var filenamePrefix = employeeId ? 'mr_' + employeeId : 'mr_' + employeeName;
+        var filenamePrefix = employeeId;
 
         document.querySelector('#btn-one').addEventListener('click', function() {
             // Show loader
@@ -792,8 +805,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+               // Set A5 size in inches for landscape
+               let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -812,7 +825,7 @@
                     imageWidth; // Height proportional to width
 
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -837,8 +850,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+              // Set A5 size in inches for landscape
+              let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -856,9 +869,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -882,8 +894,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+                 // Set A5 size in inches for landscape
+                 let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -901,9 +913,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -928,8 +939,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+                 // Set A5 size in inches for landscape
+                 let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -947,9 +958,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -974,8 +984,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+                 // Set A5 size in inches for landscape
+                 let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -993,9 +1003,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -1019,8 +1028,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+                 // Set A5 size in inches for landscape
+                 let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -1038,9 +1047,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -1083,9 +1091,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -1109,8 +1116,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+                 // Set A5 size in inches for landscape
+                 let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -1128,9 +1135,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -1154,8 +1160,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+               // Set A5 size in inches for landscape
+               let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -1173,9 +1179,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -1199,8 +1204,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+                  // Set A5 size in inches for landscape
+               let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -1219,7 +1224,7 @@
                     imageWidth; // Height proportional to width
 
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -1243,8 +1248,8 @@
                 document.getElementById('loader').style.display = 'none';
                 let base64image = canvas.toDataURL('image/png');
 
-                // Set A5 size in inches for landscape
-                let a5WidthInInches = 8.5;
+                 // Set A5 size in inches for landscape
+                 let a5WidthInInches = 8.5;
                 let a5HeightInInches = 5.5;
 
                 // Convert inches to points
@@ -1262,9 +1267,8 @@
                 let imageHeight = (canvas.height / canvas.width) *
                     imageWidth; // Height proportional to width
 
-
                 // Create the PDF with A5 page size in landscape orientation
-                let pdf = new jsPDF('l', 'px', [a5Width, a5Height]);
+                let pdf = new jsPDF('l', 'pt', [a5Width, a5Height]);
 
                 // Add the image to the PDF
                 pdf.addImage(base64image, 'PNG', imageX, imageY, imageWidth, imageHeight);
@@ -1277,9 +1281,7 @@
             });
         });
     </script>
-
-
-
+    
 </body>
 
 </html>

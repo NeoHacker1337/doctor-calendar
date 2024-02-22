@@ -9,6 +9,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MRListExport;
 
 class MarketingRepresentativeController extends Controller
 {
@@ -37,17 +39,17 @@ class MarketingRepresentativeController extends Controller
         $rules = [
             'name' => 'required|string|max:255',
             'employee_id' => 'required|string|max:255|unique:users,employee_id',
-            'email' => 'required|email|max:255|unique:users,email',
-            'date_of_birth' => 'required|date',
-            'phone' => 'required|string|max:20',
-            'status' => ['required', Rule::in(['Active', 'InActive', 'Suspend', 'Block'])],
-            'password' => 'required|string|min:6|confirmed',
+            // 'email' => 'required|email|max:255|unique:users,email',
+            // 'date_of_birth' => 'required|date',
+            // 'phone' => 'required|string|max:20',
+            // 'status' => ['required', Rule::in(['Active', 'InActive', 'Suspend', 'Block'])],
+            // 'password' => 'required|string|min:6|confirmed',
         ];
 
         // Custom validation messages
         $messages = [
-            'status.in' => 'The status must be one of: Active, InActive, Suspend, Block.',
-            'password.confirmed' => 'The password confirmation does not match.',
+            // 'status.in' => 'The status must be one of: Active, InActive, Suspend, Block.',
+            // 'password.confirmed' => 'The password confirmation does not match.',
         ];
 
         // Validate the request data
@@ -56,18 +58,11 @@ class MarketingRepresentativeController extends Controller
         try {
             // Create a new User instance
             $user = new User();
-
-            // Fill the user data
-            $user->date_of_birth = $validatedData['date_of_birth'];
-            $user->email = $validatedData['email'];
-            $user->employee_id = $validatedData['employee_id'];
-            $user->name = $validatedData['name'];
-            $user->phone = $validatedData['phone'];
-            $user->status = $validatedData['status'];
-
-            // Set the password
-            $user->password = bcrypt($validatedData['password']);
-
+            $user->employee_id = $request->input('employee_id');
+            $user->name = $request->input('name');
+            $user->role = 'mr';
+            $user->status = 'Active';
+            $user->doctor_create_limit = '10';
             // Save the user
             $user->save();
 
@@ -80,37 +75,6 @@ class MarketingRepresentativeController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 
     public function mrListtable()
     {
@@ -142,8 +106,8 @@ class MarketingRepresentativeController extends Controller
         $query = User::whereNull('deleted_at')
             ->where('role', 'mr');
 
-        $query->where('name', 'like', $search . '%')
-            ->where('email', 'like', $search . '%');
+        $query->where('employee_id', 'like', $search . '%')
+            ->where('employee_id', 'like', $search . '%');
 
         $total = $query->count();
 
@@ -153,22 +117,24 @@ class MarketingRepresentativeController extends Controller
             ->get();
 
 
-
         $data = [];
 
         foreach ($order as $index => $cate) {
 
             $doctor_count = Doctor::where('created_by', $cate->id)->count();
+            $download = '<a href="' . route('admin.zipdownload', ['imageId' => $cate->id]) . '" class="btn btn-sm btn-info" title="Download All Doctor Photos">
+            <i class="fa fa-download"></i></a>';
 
             $data[] = [
-                "id" => $index + 1,
+
                 'name' => $cate->name,
                 "employee_id" => $cate->employee_id,
-                "email" => $cate->email,
-                "phone" => $cate->phone,
-                "date_of_joining" => Carbon::parse($cate->created_at)->format('Y-m-d h:iA'),
-                "status" => $cate->status,
-                "doctor_added" => $doctor_count,                 
+                // "email" => $cate->email,
+                // "phone" => $cate->phone,
+                // "date_of_joining" => Carbon::parse($cate->created_at)->format('Y-m-d h:iA'),
+                // "status" => $cate->status,
+                "doctor_added" => $doctor_count,
+                "download" =>  $download,
             ];
         }
 
@@ -179,5 +145,56 @@ class MarketingRepresentativeController extends Controller
         ];
 
         return response()->json($records);
+    }
+
+
+    public function exportMRList(Request $request)
+    {
+        $current_time = \Carbon\Carbon::now()->toDateTimeString();
+
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=mr_list_$current_time.csv",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+
+        $mrdata = User::select('users.name as mrName', 'users.employee_id as mrId', 'doctors.name as doctorName')
+            ->LeftJoin('doctors', 'doctors.created_by', '=', 'users.id')
+            ->where('users.role', 'mr')
+            ->get();
+
+
+
+        $columns = array(
+            'MR ID',
+            'MR NAME',
+            'DOCTOR NAME',
+        );
+
+        $callback = function () use ($mrdata, $columns) {
+            $file = fopen('php://output', 'w');
+            // Add UTF-8 BOM
+            fprintf($file, chr(0xEF) . chr(0xBB) . chr(0xBF));
+
+            // Write headers
+            fputcsv($file, $columns);
+
+            foreach ($mrdata as $cate) {
+
+                fputcsv($file, [
+                    $cate->mrId,
+                    $cate->mrName,
+                    $cate->doctorName
+                ]);
+            }
+            fclose($file);
+        };
+
+
+        return response()->stream($callback, 200, $headers);
+        exit();
     }
 }
